@@ -3,5 +3,16 @@
   "version": "0.0.0",
   "private": false,
   "description": "Mushroom, an animated SVG mascot for React: seven emotions, morphing face, idle life and a speech bubble.",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.2",
+    "typescript": "5.9.3",
+    "vitest": "5.0.0",
+    "zod": "^4.4.3"
+  }
 }

@@ -91,6 +91,7 @@ export default defineConfig([
       'import-x/resolver-next': [
         createTypeScriptImportResolver({
           project: ['tsconfig.json', 'packages/*/tsconfig.json', 'apps/*/tsconfig.json'],
+          noWarnOnMultipleProjects: true,
         }),
       ],
     },
@@ -120,7 +121,7 @@ export default defineConfig([
   },
   {
     name: 'open-mushroom/tooling',
-    files: ['tools/**/*.ts', 'scripts/**/*.ts', '**/qa/**/*.ts'],
+    files: ['**/tools/**/*.ts', '**/scripts/**/*.ts', '**/qa/**/*.ts'],
     languageOptions: { globals: { ...globals.node } },
     rules: toolingOverrides,
   },

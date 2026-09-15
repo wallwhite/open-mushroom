@@ -10,6 +10,7 @@ export default defineConfig({
           include: ['eslint/**/*.test.ts'],
         },
       },
+      'packages/open-mushroom',
     ],
   },
 });
