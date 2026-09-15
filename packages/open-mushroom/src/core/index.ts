@@ -7,6 +7,7 @@ export { ALL_IDLE_PARTS } from './animations/idle/idle-controller';
 export type { MushroomIdleParts } from './animations/idle/idle-controller';
 export { ensureMushroomGsap } from './animations/mushroom-gsap';
 export type { MushroomGsap, MushroomTimeline } from './animations/mushroom-gsap';
+export { MUSHROOM_BUBBLE_ANCHOR } from './constants/mushroom-bubble-anchor';
 export { MUSHROOM_EMOTIONS } from './constants/mushroom-emotions';
 export type { MushroomEmotion } from './constants/mushroom-emotions';
 export { FACE_LAYOUT, layoutTransform, MUSHROOM_VIEWBOX } from './constants/mushroom-layout';

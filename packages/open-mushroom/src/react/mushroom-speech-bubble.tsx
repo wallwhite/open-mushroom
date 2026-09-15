@@ -1,6 +1,7 @@
 import { type ComponentProps, type CSSProperties, useEffect, useRef } from 'react';
 
 import { ensureMushroomGsap, type MushroomGsap, type MushroomTimeline } from '../core/animations/mushroom-gsap';
+import { MUSHROOM_BUBBLE_TAIL } from '../core/constants/mushroom-bubble-tail';
 import { joinClassNames } from './join-class-names';
 import { buildBubbleTimeline, buildInstantBubbleTimeline } from './speech-bubble-motion';
 
@@ -11,22 +12,6 @@ import { buildBubbleTimeline, buildInstantBubbleTimeline } from './speech-bubble
  * themed through `--om-bubble-*` custom properties.
  */
 
-/*
- * The tail, drawn in its own box hung under the corner.
- *
- * Its base is the segment of the bubble's own bottom edge to the left of the
- * corner (`TAIL_ANCHOR_PX` of it), so the shape grows out of the card rather
- * than being stuck beside it. From there the outer edge sweeps down and right
- * to a rounded tip and the inner edge curves back, giving the soft comic-strip
- * fin instead of a paper aeroplane.
- */
-const TAIL_PATH = 'M0 0H18C18.5 7.5 21 14.5 27.4 21.4 28.4 22.4 27.8 23.9 26.4 23.4 14.6 19.4 5.6 11 0 0Z';
-const TAIL_WIDTH = 30;
-const TAIL_HEIGHT = 25;
-/* Where the bubble's right edge falls inside that box. */
-const TAIL_ANCHOR_PX = 16;
-/* A hairline of overlap, so the two whites never show a seam between them. */
-const TAIL_OVERLAP = 1;
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
 const noop = (): void => {};
@@ -155,19 +140,19 @@ export const MushroomSpeechBubble = ({
 
       <svg
         className="om-bubble__tail"
-        viewBox={`0 0 ${TAIL_WIDTH} ${TAIL_HEIGHT}`}
+        viewBox={`0 0 ${MUSHROOM_BUBBLE_TAIL.width} ${MUSHROOM_BUBBLE_TAIL.height}`}
         fill="currentColor"
         aria-hidden="true"
         focusable="false"
         style={{
-          left: `calc(100% - ${TAIL_ANCHOR_PX}px)`,
+          left: `calc(100% - ${MUSHROOM_BUBBLE_TAIL.anchorPx}px)`,
           top: '80%',
-          marginTop: -TAIL_OVERLAP,
-          width: TAIL_WIDTH,
-          height: TAIL_HEIGHT,
+          marginTop: -MUSHROOM_BUBBLE_TAIL.overlapPx,
+          width: MUSHROOM_BUBBLE_TAIL.width,
+          height: MUSHROOM_BUBBLE_TAIL.height,
         }}
       >
-        <path d={TAIL_PATH} />
+        <path d={MUSHROOM_BUBBLE_TAIL.path} />
       </svg>
     </div>
   );

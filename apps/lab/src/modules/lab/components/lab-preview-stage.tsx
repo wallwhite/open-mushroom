@@ -1,9 +1,10 @@
 'use client';
 
-import { type MouseEvent, type RefObject, useRef } from 'react';
+import { type CSSProperties, type MouseEvent, type RefObject, useRef } from 'react';
 
 import { useTranslations } from 'next-intl';
 import { Mushroom, type MushroomHandle, MushroomSpeechBubble } from 'open-mushroom';
+import { MUSHROOM_BUBBLE_ANCHOR } from 'open-mushroom/core';
 
 import { cn } from '@/lib/utils';
 import { LabOverlayLayer } from '@/modules/lab/components/lab-overlay-layer';
@@ -22,8 +23,13 @@ const SPAN = 2;
 const UNIT = 1;
 
 const clampUnit = (value: number): number => Math.max(-UNIT, Math.min(UNIT, value));
+/* The package's anchor as custom properties, so the responsive classes below can switch to it. */
+const BUBBLE_ANCHOR_VARS = {
+  '--bubble-right': MUSHROOM_BUBBLE_ANCHOR.right,
+  '--bubble-bottom': MUSHROOM_BUBBLE_ANCHOR.bottom,
+} as CSSProperties;
 
-/* The preview under test with its companions: the bubble above it, onion-skin twin, overlay, a header-sized second instance, and the calls to action. */
+/* The preview under test with its companions: the bubble beside it (above it in a narrow stage), onion-skin twin, overlay, a header-sized second instance, and the calls to action. */
 export const LabPreviewStage = ({ state, handleRef, onDismissBubble }: LabPreviewStageProps) => {
   const t = useTranslations('lab');
   const boxRef = useRef<HTMLDivElement>(null);
@@ -42,15 +48,18 @@ export const LabPreviewStage = ({ state, handleRef, onDismissBubble }: LabPrevie
     <section
       style={{ minHeight: STAGE_MIN_HEIGHT }}
       className={cn(
-        /* Extra room at the top: the bubble hangs above the character and must stay inside the card. */
-        'flex flex-col items-center justify-center gap-10 rounded-3xl p-8 pt-20',
+        /* A narrow stage hangs the bubble above the character and needs room for it at the top; the stage is its own container so the switch follows its width, not the viewport's. */
+        '@container flex flex-col items-center justify-center gap-10 rounded-3xl p-8 pt-24 @min-[46rem]:pt-8',
         LAB_BACKGROUNDS[state.background],
       )}
     >
       <div className="flex flex-wrap items-center justify-center gap-10">
-        <div className="relative">
-          {/* The card sits on the box's top edge, its tail reaching down to the hat, the corner over the centre; on phones the card narrows so it stays on screen. */}
-          <div className="absolute right-1/2 bottom-full z-10 [--om-bubble-width:min(17rem,calc(50vw_-_1rem))]">
+        {/* With room for the card (17rem, the package's default `--om-bubble-width`) plus the hero size, the card hangs beside the body on the package's anchor and the margin keeps the pair centred; in a narrower stage it sits above the head, narrowed to stay on screen. */}
+        <div className="relative @min-[46rem]:ml-[17rem]">
+          <div
+            className="absolute right-1/2 bottom-full z-10 @max-[46rem]:[--om-bubble-width:min(17rem,calc(50cqw_-_1rem))] @min-[46rem]:right-(--bubble-right) @min-[46rem]:bottom-(--bubble-bottom)"
+            style={BUBBLE_ANCHOR_VARS}
+          >
             <MushroomSpeechBubble
               text={state.bubble.text}
               visible={state.bubble.visible}

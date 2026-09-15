@@ -7,6 +7,7 @@ import * as root from '../index';
 const CORE_VALUES = [
   'ALL_IDLE_PARTS',
   'FACE_LAYOUT',
+  'MUSHROOM_BUBBLE_ANCHOR',
   'MUSHROOM_EMOTIONS',
   'MUSHROOM_EYE_SIDES',
   'MUSHROOM_EYE_SLOTS',

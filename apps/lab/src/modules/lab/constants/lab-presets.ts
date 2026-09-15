@@ -16,5 +16,3 @@ export type LabBackground = keyof typeof LAB_BACKGROUNDS;
 
 /* The overlay reads live geometry from the SVG on this interval, only while an overlay is on. */
 export const LAB_POLL = { overlayMs: 120 } as const;
-
-export const LAB_COPIED_FEEDBACK_MS = 2000;

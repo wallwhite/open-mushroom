@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import { Link } from '@/i18n/navigation';
+import { cn } from '@/lib/utils';
 import { LabInstallSnippet } from '@/modules/lab/components/lab-install-snippet';
 import { buttonVariants } from '@/components/ui/button';
 
@@ -10,7 +11,10 @@ export const LabPreviewCta = () => {
 
   return (
     <div className="flex flex-wrap items-center justify-center gap-3">
-      <Link href="/docs" className={buttonVariants({ size: 'cta' })}>
+      <Link
+        href="/docs" /* Merged, so the size's radius wins over the base rounding. */
+        className={cn(buttonVariants({ size: 'cta' }))}
+      >
         {t('docs')}
       </Link>
       <LabInstallSnippet />

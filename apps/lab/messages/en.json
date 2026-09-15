@@ -50,6 +50,7 @@
         "demo": "Demo lines"
       },
       "speaker": "Mushroom",
+      "previous": "Previous line",
       "next": "Next line",
       "hide": "Hide",
       "show": "Show",
@@ -87,6 +88,38 @@
       "onionEmotion": "Onion-skin emotion",
       "onionOpacity": "Onion-skin opacity",
       "none": "none"
+    }
+  },
+  "docs": {
+    "nav": {
+      "label": "Documentation",
+      "groups": {
+        "gettingStarted": "Getting started",
+        "guides": "Guides",
+        "reference": "Reference"
+      },
+      "pages": {
+        "introduction": "Introduction",
+        "emotions": "Emotions",
+        "idle-life-and-talking": "Idle life and talking",
+        "imperative-handle": "Imperative handle",
+        "speech-bubble": "Speech bubble",
+        "theming-sizing-and-ssr": "Theming, sizing and SSR",
+        "api-reference": "API reference"
+      }
+    },
+    "pager": {
+      "previous": "Previous",
+      "next": "Next",
+      "editOnGitHub": "Edit this page on GitHub"
+    },
+    "preview": {
+      "preview": "Preview",
+      "code": "Code"
+    },
+    "code": {
+      "copy": "Copy code",
+      "copied": "Copied"
     }
   }
 }

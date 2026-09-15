@@ -50,6 +50,7 @@
         "demo": "Демо-фрази"
       },
       "speaker": "Машрум",
+      "previous": "Попередня фраза",
       "next": "Наступна фраза",
       "hide": "Сховати",
       "show": "Показати",
@@ -87,6 +88,38 @@
       "onionEmotion": "Onion-skin емоція",
       "onionOpacity": "Onion-skin прозорість",
       "none": "нема"
+    }
+  },
+  "docs": {
+    "nav": {
+      "label": "Документація",
+      "groups": {
+        "gettingStarted": "Початок",
+        "guides": "Гайди",
+        "reference": "Довідник"
+      },
+      "pages": {
+        "introduction": "Вступ",
+        "emotions": "Емоції",
+        "idle-life-and-talking": "Idle-життя і мовлення",
+        "imperative-handle": "Імперативний handle",
+        "speech-bubble": "Хмаринка",
+        "theming-sizing-and-ssr": "Теми, розміри і SSR",
+        "api-reference": "Довідник API"
+      }
+    },
+    "pager": {
+      "previous": "Назад",
+      "next": "Далі",
+      "editOnGitHub": "Редагувати цю сторінку на GitHub"
+    },
+    "preview": {
+      "preview": "Превʼю",
+      "code": "Код"
+    },
+    "code": {
+      "copy": "Скопіювати код",
+      "copied": "Скопійовано"
     }
   }
 }

@@ -26,11 +26,14 @@ export interface BodyEllipse {
   ry: number;
 }
 
+/* The dense core is the body's visible edge; the speech bubble anchor and the other layers hang off it. */
+export const BODY_CORE = { cx: 310, cy: 340, rx: 236, ry: 224 } as const;
+
 /* Bottom → top: a wide soft halo, an offset tint that breaks the symmetry, a dense core. */
 export const BODY_ELLIPSES: readonly BodyEllipse[] = [
   { key: 'halo', cx: 320, cy: 350, rx: 295, ry: 283 },
   { key: 'tint', cx: 352, cy: 388, rx: 242, ry: 224 },
-  { key: 'core', cx: 310, cy: 340, rx: 236, ry: 224 },
+  { key: 'core', ...BODY_CORE },
 ];
 
 /* Radial gradient stops (offset → opacity) per body layer. */

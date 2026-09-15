@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useMessages, useTranslations } from 'next-intl';
 import { MushroomSpeechBubble } from 'open-mushroom';
 
@@ -10,20 +11,27 @@ import { Button } from '@/components/ui/button';
 
 interface LabBubblePanelProps {
   onShowInPreview: (text: string) => void;
+  onHideInPreview: () => void;
 }
 
 /*
  * The speech bubble off its timer: step through the demo lines against the
- * real component, hide and show it to watch the entrance and exit, and send
- * a line to the preview to see it next to the character.
+ * real component with the arrows (they wrap around), and send the current
+ * line to the preview or take it away again. The card in the panel is itself
+ * a button for the same "show" action.
  */
-export const LabBubblePanel = ({ onShowInPreview }: LabBubblePanelProps) => {
+export const LabBubblePanel = ({ onShowInPreview, onHideInPreview }: LabBubblePanelProps) => {
   const t = useTranslations('lab.bubble');
   const { lines } = useMessages().lab.bubble;
   const [index, setIndex] = useState(0);
-  const [visible, setVisible] = useState(true);
-  const position = index % lines.length;
-  const current = lines[position] ?? '';
+  const current = lines[index] ?? '';
+  /* Wraps at both ends: the last line is followed by the first and the first is preceded by the last. */
+  const stepForward = (): void => {
+    setIndex((previous) => (previous + 1) % lines.length);
+  };
+  const stepBack = (): void => {
+    setIndex((previous) => (previous + lines.length - 1) % lines.length);
+  };
 
   return (
     <LabPanel title={t('title')}>
@@ -35,7 +43,7 @@ export const LabBubblePanel = ({ onShowInPreview }: LabBubblePanelProps) => {
         >
           <option value="demo">{t('set.demo')}</option>
         </select>
-        <span>{t('counter', { index: position + 1, total: lines.length, chars: current.length })}</span>
+        <span>{t('counter', { index: index + 1, total: lines.length, chars: current.length })}</span>
       </div>
       {/* The bubble inside is decoration (it never takes pointer events); the button is the real control. */}
       <button
@@ -47,26 +55,26 @@ export const LabBubblePanel = ({ onShowInPreview }: LabBubblePanelProps) => {
           onShowInPreview(current);
         }}
       >
-        <MushroomSpeechBubble text={current} visible={visible} speaker={t('speaker')} />
+        <MushroomSpeechBubble visible text={current} speaker={t('speaker')} />
       </button>
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2">
+        <Button size="icon-sm" variant="outline" aria-label={t('previous')} onClick={stepBack}>
+          <ChevronLeft />
+        </Button>
         <Button
           size="sm"
           className="flex-1"
           onClick={() => {
-            setIndex((previous) => previous + 1);
+            onShowInPreview(current);
           }}
         >
-          {t('next')}
+          {t('show')}
         </Button>
-        <Button
-          size="sm"
-          variant="outline"
-          onClick={() => {
-            setVisible((previous) => !previous);
-          }}
-        >
-          {visible ? t('hide') : t('show')}
+        <Button size="sm" variant="outline" className="flex-1" onClick={onHideInPreview}>
+          {t('hide')}
+        </Button>
+        <Button size="icon-sm" variant="outline" aria-label={t('next')} onClick={stepForward}>
+          <ChevronRight />
         </Button>
       </div>
     </LabPanel>

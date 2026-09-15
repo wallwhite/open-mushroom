@@ -43,7 +43,9 @@ export const Hero = () => {
 - `ref`: `blink()`, `lookAt(dx, dy)`, `getSnapshot()`; diagnostics helpers are not covered by semver
 
 Theme through CSS custom properties on any ancestor: `--om-ink`, `--om-white`, `--om-bubble-bg`, `--om-bubble-fg`,
-`--om-bubble-muted`, `--om-bubble-width`, `--om-bubble-shadow`.
+`--om-bubble-muted`, `--om-bubble-width`, `--om-bubble-shadow`. Hang the bubble beside the body with
+`MUSHROOM_BUBBLE_ANCHOR` from `open-mushroom/core` (CSS `right`/`bottom` inside a `position: relative` wrapper around
+the character).
 
 ## Two entries
 

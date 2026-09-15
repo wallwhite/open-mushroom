@@ -42,6 +42,9 @@ export const MushroomLab = () => {
   const showBubble = useCallback((text: string) => {
     dispatch({ type: 'bubble', patch: { text, visible: true } });
   }, []);
+  const hideBubble = useCallback(() => {
+    dispatch({ type: 'bubble', patch: { visible: false } });
+  }, []);
 
   useLabHold(handleRef, state.holdAt);
   useLabDebugHandle({ handleRef, setEmotion, setSize, setMounted, setHoldAt, showBubble, pageActiveTweens });
@@ -50,13 +53,7 @@ export const MushroomLab = () => {
     <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
       <div className="flex min-w-0 flex-1 flex-col gap-4">
         <h1 className="sr-only">{t('title')}</h1>
-        <LabPreviewStage
-          state={state}
-          handleRef={handleRef}
-          onDismissBubble={() => {
-            dispatch({ type: 'bubble', patch: { visible: false } });
-          }}
-        />
+        <LabPreviewStage state={state} handleRef={handleRef} onDismissBubble={hideBubble} />
       </div>
       <aside className="flex w-full shrink-0 flex-col gap-3 lg:w-[26rem]">
         <LabEmotionGrid emotion={state.emotion} onSelect={setEmotion} />
@@ -71,7 +68,7 @@ export const MushroomLab = () => {
             dispatch({ type: 'patch', patch: { talking } });
           }}
         />
-        <LabBubblePanel onShowInPreview={showBubble} />
+        <LabBubblePanel onShowInPreview={showBubble} onHideInPreview={hideBubble} />
         <LabStageControls state={state} dispatch={dispatch} />
       </aside>
     </div>

@@ -39,7 +39,7 @@
   line-height: 1.375;
 }
 
-/* The tail keeps the card's colour and hangs under the square corner, rotated toward the mushroom. */
+/* The tail keeps the card's colour and hangs under the square corner, rotated toward the mushroom (the angle is mirrored in core's tail constants). */
 .om-bubble__tail {
   position: absolute;
   color: var(--om-bubble-bg, #fff);
