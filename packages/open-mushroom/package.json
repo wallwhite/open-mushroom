@@ -41,8 +41,7 @@
     "dist",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE",
-    "LICENSE-ASSETS"
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsdown",
@@ -50,7 +49,7 @@
     "lint:package": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./styles.css && size-limit",
     "mushroom:build": "tsx tools/skeleton/build-mushroom-skeleton.ts",
     "mushroom:check": "pnpm mushroom:build && git diff --exit-code -- src/core/generated",
-    "prepack": "pnpm build && cp ../../LICENSE ../../LICENSE-ASSETS ./",
+    "prepack": "pnpm build && cp ../../LICENSE ./",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json"
   },

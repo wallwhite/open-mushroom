@@ -3,7 +3,6 @@
 [![npm version](https://img.shields.io/npm/v/open-mushroom)](https://www.npmjs.com/package/open-mushroom)
 [![CI](https://github.com/wallwhite/open-mushroom/actions/workflows/ci.yml/badge.svg)](https://github.com/wallwhite/open-mushroom/actions/workflows/ci.yml)
 [![MIT license](https://img.shields.io/badge/code-MIT-blue)](./LICENSE)
-[![CC BY 4.0 artwork](https://img.shields.io/badge/artwork-CC%20BY%204.0-lightgrey)](./LICENSE-ASSETS)
 
 Mushroom Gennadiyovych is a living SVG mascot for React: seven emotions that morph into each other, an idle
 life (blinks, gaze, breathing, shimmer), a talking mouth for streamed text, and a speech bubble. The face is
@@ -73,7 +72,5 @@ Node 22 and pnpm 10 (`.nvmrc`, `packageManager`). Releases are versioned with Ch
 ## Licenses
 
 - Code: [MIT](./LICENSE)
-- Artwork (source SVG exports and the generated skeleton manifests): [CC BY 4.0](./LICENSE-ASSETS), attribution
-  "Mushroom character by Yaroslav Romanenko"
 - GSAP is a peer dependency under the GSAP Standard License (no charge); MorphSVGPlugin ships in the public
   `gsap` package

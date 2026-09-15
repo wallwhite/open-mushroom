@@ -80,7 +80,7 @@ jobs:
         run: |
           pnpm --filter open-mushroom pack --pack-destination "$RUNNER_TEMP/pack"
           tar -tzf "$RUNNER_TEMP"/pack/*.tgz | sort | tee "$RUNNER_TEMP/tarball.txt"
-          if grep -vE '^package/(dist/|README\.md$|CHANGELOG\.md$|LICENSE$|LICENSE-ASSETS$|package\.json$)' "$RUNNER_TEMP/tarball.txt"; then
+          if grep -vE '^package/(dist/|README\.md$|CHANGELOG\.md$|LICENSE$|package\.json$)' "$RUNNER_TEMP/tarball.txt"; then
             echo "unexpected files in the tarball" && exit 1
           fi
       - run: pnpm audit --prod --audit-level=high

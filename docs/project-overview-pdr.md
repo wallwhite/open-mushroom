@@ -24,4 +24,3 @@ Open Mushroom is a standalone, open-source monorepo extracting an animated chara
 ## Licensing
 
 - Code: MIT (see LICENSE)
-- Artwork: CC BY 4.0 with attribution "Mushroom character by Yaroslav Romanenko" (see LICENSE-ASSETS)

@@ -61,5 +61,4 @@ Documentation and a playground live in Mushroom Lab: https://github.com/wallwhit
 
 ## Licenses
 
-Code is MIT. The character artwork (source exports and the generated skeleton manifests inside the package) is
-CC BY 4.0, attribution "Mushroom character by Yaroslav Romanenko"; see `LICENSE-ASSETS` in the package.
+Code is MIT.
