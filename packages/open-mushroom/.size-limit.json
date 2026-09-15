@@ -1,0 +1,10 @@
+[
+  {
+    "name": "open-mushroom (Mushroom, gzip)",
+    "path": "dist/index.js",
+    "import": "{ Mushroom }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime", "gsap", "gsap/MorphSVGPlugin"],
+    "gzip": true,
+    "limit": "115 kB"
+  }
+]

@@ -23,10 +23,12 @@ Living document tracking progress toward v0.1.0 and beyond.
    - Zod schema validation for manifests
    - Source checksum validation
 
-5. **Package bundling & release** (planned)
-   - Bundle configuration (ESM + types)
-   - Changesets + CHANGELOG automation
-   - npm publishing workflow
+5. **Package bundling & release** ✓ Complete
+   - tsdown bundler: two ESM entries, declarations, sourcemaps
+   - Package exports: `.`, `./core`, `./styles.css`, `./package.json`
+   - Changesets versioning + CHANGELOG automation
+   - GitHub Actions: Version pull request + automated npm publish (OIDC trusted)
+   - Quality gates: publint, arethetypeswrong, size-limit (115 kB gzip budget)
 
 6. **Lab playground** (planned)
    - Next.js playground with interactive controls

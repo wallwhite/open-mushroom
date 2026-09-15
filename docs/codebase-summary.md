@@ -18,13 +18,24 @@ open-mushroom/
 
 ## Build & Testing
 
-- **Monorepo:** pnpm workspaces; catalog pins React 19, TypeScript 5.9.3, Vitest 5
-- **Package build:** `build:package` emits ESM + types to `dist/`
-- **Scripts:** `lint` (ESLint 9), `format` (Prettier 3.9), `typecheck`, `test` (Vitest, 87 tests in 16 files)
-- **Pre-commit:** husky + lint-staged lint and format staged files
-- **CLI:** `pnpm check` runs all validation (lint, format, typecheck, test)
+**Monorepo:** pnpm workspaces; catalog pins React 19, TypeScript 5.9.3, Vitest 5
 
-## Public Entries
+**Package bundler:** tsdown ~0.21.10 (rolldown-based, two ESM entries with sourcemaps)
+- Client entry preserves `'use client'` directive
+- Core entry RSC-safe (no directives)
+- Stylesheet copied to dist/, exported as `./styles.css`
+- Peers (react, react-dom, gsap) never bundled
 
-- `open-mushroom`: components and types (client-side)
-- `open-mushroom/core`: values and types (RSC-safe, framework-free)
+**Quality gates:** publint, arethetypeswrong (ESM-only), size-limit (115 kB gzip)
+
+**Scripts:** `lint` (ESLint 9), `format` (Prettier 3.9), `typecheck`, `test` (Vitest)
+- `pnpm check`: lint → format → typecheck → typecheck:consumer → test
+- `pnpm lint:package`: publint + arethetypeswrong + size-limit before npm publish
+- Pre-commit: husky + lint-staged (format and lint staged files)
+
+## Public Package Exports
+
+- `open-mushroom`: client components and types
+- `open-mushroom/core`: constants and types (server-safe)
+- `open-mushroom/styles.css`: stylesheet
+- `open-mushroom/package.json`: package metadata

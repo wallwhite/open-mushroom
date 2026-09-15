@@ -31,10 +31,17 @@ pnpm check       # Runs lint, format, typecheck, test (all call build:package fi
 
 ## Releases
 
-Package updates require a changeset:
+All package updates require a changeset:
 
 ```bash
-pnpm changeset    # Select patch/minor/major + write summary
+pnpm changeset    # Select patch/minor/major, write summary
+git add .changeset && git commit -m "chore: add changeset"
 ```
 
-CHANGELOG and version are auto-generated at release time. First release (0.1.0) is manual; later releases use the automated workflow.
+**First release (0.1.0):** Manual
+
+```bash
+pnpm changeset version && npm login && pnpm --filter open-mushroom publish --access public --no-provenance
+```
+
+**Subsequent releases:** Push to main. The workflow automatically opens a "Version Packages" pull request; once merged, publishing happens automatically (OIDC-verified, no tokens).

@@ -23,6 +23,14 @@
 - Comments explain invariants and trade-offs, not obvious code
 - No local paths, plan references, or tool names in code
 
+## Toolchain
+
+**Node version enforcement:**
+- Root `engines` enforced by pnpm (>=22)
+- `.npmrc` sets `engine-strict=false` because transitive dev tooling (ast-kit 3, Babel 8 pre-releases) declares Node >=22.18 while dev machines may run older Node 22
+- CI uses latest Node 22 from `.nvmrc`
+- Upgrade local Node to 22.18+ to enable strict mode
+
 ## Git Hygiene
 
 - Conventional commits: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`

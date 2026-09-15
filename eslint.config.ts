@@ -121,7 +121,7 @@ export default defineConfig([
   },
   {
     name: 'open-mushroom/tooling',
-    files: ['**/tools/**/*.ts', '**/scripts/**/*.ts', '**/qa/**/*.ts'],
+    files: ['**/tools/**/*.{ts,tsx}', '**/scripts/**/*.{ts,tsx}', '**/qa/**/*.{ts,tsx}'],
     languageOptions: { globals: { ...globals.node } },
     rules: toolingOverrides,
   },
