@@ -77,6 +77,18 @@ open-mushroom/
 
 **Package consumption:** `transpilePackages: ['open-mushroom']`; in dev, Turbopack `resolveAlias` maps imports to `src/` (HMR); in production, `next build` consumes compiled `dist/`.
 
+## Site Metadata and Share Cards
+
+**Location:** `apps/lab/src/app` (file conventions) and `apps/lab/src/modules/og/`
+
+- `app/icon.svg`, `app/icon.png`, `app/apple-icon.png`: the character's face, cropped to the head; the SVG is the package's own render with the palette inlined
+- `app/manifest.ts`: name, colours and icons for a bookmarked phone
+- `app/[locale]/opengraph-image.tsx`, `app/[locale]/docs/opengraph-image.tsx`, `app/[locale]/docs/[slug]/opengraph-image.tsx`: one 1200x630 card per page and language, prerendered
+- `modules/og/og-card.tsx`: the card itself - the page's title and summary on the left, the mascot on the right, Montserrat subsets and the mascot SVG read from `src/assets`
+- `components/seo/structured-data.tsx`: `SoftwareSourceCode` JSON-LD on the home page
+- `lib/brand-colors.ts`: the palette as plain sRGB, for the generated images and the browser chrome
+- Absolute URLs (canonical, hreflang, `og:image`) come from `APP_URL` at build time; without it they fall back to localhost
+
 ## Lab Module (Interactive Playground)
 
 **Location:** `apps/lab/src/modules/lab/`

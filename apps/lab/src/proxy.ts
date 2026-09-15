@@ -5,7 +5,11 @@ import { routing } from '@/i18n/routing';
 /* Locale detection: URL prefix, then the NEXT_LOCALE cookie, then Accept-Language, then the default. */
 export default createMiddleware(routing);
 
-/* Next reads this statically, so the matcher must stay a literal: pages only, never API routes, internals or files. */
+/*
+ * Next reads this statically, so the matcher must stay a literal: pages only, never API routes,
+ * internals or files. The generated share cards are addressed with their language in the path, and a
+ * scraper should get the image itself rather than a redirect, so they stay out of the locale rewrite.
+ */
 export const config = {
-  matcher: '/((?!api|_next|_vercel|.*\\..*).*)',
+  matcher: '/((?!api|_next|_vercel|.*opengraph-image|.*\\..*).*)',
 };

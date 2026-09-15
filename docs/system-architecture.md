@@ -82,6 +82,13 @@ Every page includes hreflang alternates and Open Graph locale:
 - Reduced motion = instant frames, no idle life
 - Inline ink/white paint (`--om-ink`, `--om-white`, `--om-ink-stroke`)
 
+## Metadata
+
+Every page declares canonical and `hreflang` links, Open Graph and Twitter tags, and points at a share
+card generated for that page and language (`opengraph-image.tsx` + `ImageResponse`). The cards are
+prerendered per locale and per documentation slug, so nothing is drawn at request time. The locale
+rewrite skips `opengraph-image` paths: a scraper should receive the image, not a redirect.
+
 ## Lab Page (Interactive Playground)
 
 **Composition:**

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 import { localePath } from '@/i18n/locale-path';
 import type { AppLocale } from '@/i18n/routing';
@@ -24,17 +25,34 @@ export const DocArticle = async ({ slug, locale }: DocArticleProps) => {
   );
 };
 
-/* Title, description and the language alternates of one page, for `generateMetadata`. */
+/*
+ * Title, description, language alternates and the social card of one page, for `generateMetadata`.
+ * The Open Graph block is repeated rather than inherited: a page that sets it replaces the layout's
+ * whole object, and a shared link should carry the page's own name.
+ */
 export const docMetadata = async (slug: DocsSlug, locale: AppLocale): Promise<Metadata> => {
-  const { metadata } = await loadDoc(slug, locale);
+  const [{ metadata }, t] = await Promise.all([
+    loadDoc(slug, locale),
+    getTranslations({ locale, namespace: 'metadata' }),
+  ]);
   const path = docsPath(slug);
+  const { title, description } = metadata;
 
   return {
-    title: metadata.title,
-    description: metadata.description,
+    title,
+    description,
     alternates: {
       canonical: localePath(locale, path),
       languages: { en: localePath('en', path), uk: localePath('uk', path), 'x-default': localePath('en', path) },
     },
+    openGraph: {
+      type: 'article',
+      siteName: t('title'),
+      title,
+      description,
+      url: localePath(locale, path),
+      locale: locale === 'uk' ? 'uk_UA' : 'en_US',
+    },
+    twitter: { card: 'summary_large_image', title, description },
   };
 };
