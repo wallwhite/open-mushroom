@@ -87,15 +87,18 @@ Every page includes hreflang alternates and Open Graph locale:
 **Composition:**
 ```
 MushroomLab
-├─ Preview stage (flex-1)
-│  ├─ MushroomRig (animation manager)
-│  ├─ Speech bubble (optional, positioned above character)
-│  ├─ Overlay layer (debug slots/labels/pivots/clips, conditional)
-│  └─ CTA row (Documentation link, npm install snippet)
-└─ Control panels (aside, lg:w-[26rem]; stacked below on mobile)
+├─ Hero (two columns from lg: copy capped at 32rem, stage takes the rest)
+│  ├─ Copy column
+│  │  ├─ Hero intro (character name, one-line pitch)
+│  │  └─ CTA row (Documentation link, npm install snippet)
+│  └─ Preview stage (own @container; min-h-[30rem])
+│     ├─ MushroomRig (animation manager)
+│     ├─ Speech bubble (optional; beside the body from a 46rem stage, above the head below it)
+│     └─ Overlay layer (debug slots/labels/pivots/clips, conditional)
+└─ Control panels (row: sm two columns, xl four)
    ├─ Emotion grid (7 emotion thumbnails)
    ├─ Idle life (toggle blink/gaze/breathe/shimmer/talking)
-   ├─ Speech bubble (select demo line, show in preview)
+   ├─ Speech bubble (step through demo lines, show or hide in the preview)
    └─ Scene (size, background, second instance, overlay toggles, onion-skin)
 ```
 

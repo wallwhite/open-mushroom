@@ -9,7 +9,7 @@ Mushroom Gennadiyovych is a living SVG mascot for React: seven emotions that mor
 life (blinks, gaze, breathing, shimmer), a talking mouth for streamed text, and a speech bubble. The face is
 server-rendered as plain SVG; GSAP arrives after mount.
 
-![Mushroom Lab: the preview with the speech bubble and the four control panels](./docs/assets/lab.png)
+![The lab's hero: the name, the one-line pitch, and the character with his speech bubble beside him](./docs/assets/lab.png)
 
 ## Quick start
 

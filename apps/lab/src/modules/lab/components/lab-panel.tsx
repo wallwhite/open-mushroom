@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-/* Uniform panel chrome for the lab's side column. */
+/* Uniform panel chrome for the lab's control cards. */
 export const LabPanel = ({ title, children }: { title: string; children: ReactNode }) => (
   <section className="flex flex-col gap-2 rounded-2xl border border-border bg-card p-3">
     <h2 className="text-xs font-bold tracking-wide text-muted-foreground uppercase">{title}</h2>

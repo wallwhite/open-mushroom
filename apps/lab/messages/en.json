@@ -21,7 +21,10 @@
     "home": "Back to the lab"
   },
   "lab": {
-    "title": "Mushroom Lab",
+    "hero": {
+      "title": "Mushroom Gennadiyovych",
+      "subtitle": "A React mascot with a suspiciously lively character. Blinks, breathes, follows the pointer, changes mood and talks."
+    },
     "preview": {
       "lookAtHint": "Click the preview to point the gaze"
     },

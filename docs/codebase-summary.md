@@ -82,16 +82,17 @@ open-mushroom/
 **Location:** `apps/lab/src/modules/lab/`
 
 **Component tree:**
-- `components/mushroom-lab.tsx`: Main playground (preview + four-panel aside on lg, stacked below on mobile)
-- `components/lab-preview-stage.tsx`: Character preview with optional speech bubble and CTA row
-- `components/lab-preview-cta.tsx`: Documentation link and npm install snippet (with copy button)
+- `components/mushroom-lab.tsx`: Main playground (hero: name, pitch and calls to action beside the preview from lg; four control panels in a row below, two columns from sm and four from xl)
+- `components/lab-hero-intro.tsx`: Page heading (the character's name) and the one-line pitch, both from `lab.hero` messages
+- `components/lab-preview-stage.tsx`: Character preview with optional speech bubble, own container query for the bubble's placement
+- `components/lab-preview-cta.tsx`: Documentation link and npm install snippet (with copy button), under the pitch in the hero's copy column
 - `components/lab-install-snippet.tsx`: Copy-to-clipboard with Clipboard API fallback to text selection
-- `components/lab-emotion-grid.tsx`: Seven emotion thumbnails (50×50 px) with aria-pressed states
+- `components/lab-emotion-grid.tsx`: Seven emotion thumbnails (56 px) with aria-pressed states
 - `components/lab-idle-panel.tsx`: Toggles for idle life aspects (blink, gaze, breathe, shimmer, talking) + manual blink/look-centre buttons
-- `components/lab-bubble-panel.tsx`: Single demo line set selector, current line display (button wrapper, aria-label), next/hide controls
+- `components/lab-bubble-panel.tsx`: Single demo line set selector, current line rendered by the real component (the card itself is a button), arrows that wrap around, show/hide in the preview
 - `components/lab-stage-controls.tsx`: Size (40–400 px), background (page/card/fab/dark), second instance toggle (56 px header), overlay toggles (slots/labels/pivots/clips), onion-skin (emotion + opacity)
 - `components/lab-overlay-layer.tsx`: Debug overlay reading SVG path data every 120 ms, renders slot labels/pivots/clips with `MUSHROOM_SLOT_DEBUG_COLORS` from core
-- `components/lab-panel.tsx`: Reusable panel wrapper (title, collapsible on mobile)
+- `components/lab-panel.tsx`: Reusable panel wrapper (uppercase title, card chrome)
 
 **State management:**
 - `state/lab-state.ts`: Reducer with actions (patch, bubble, idle, overlay) managing emotion, size, mounted, holdAt, speechBubble visibility/text, idle toggles, scene settings

@@ -43,7 +43,7 @@ const DEFAULT_ONION_OPACITY = 0.4;
 export const INITIAL_LAB_STATE: LabState = {
   emotion: 'neutral',
   size: LAB_DEFAULT_SIZE,
-  background: 'card',
+  background: 'page',
   secondInstance: false,
   mounted: true,
   holdAt: null,
