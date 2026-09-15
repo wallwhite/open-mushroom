@@ -46,6 +46,7 @@ repomix-output.xml
 artifacts/
 screenshots/
 *.backup
+docs/journals/
 
 # copied into the package by its prepack script
 packages/open-mushroom/LICENSE
