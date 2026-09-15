@@ -1,0 +1,47 @@
+/*
+ * Open Mushroom stylesheet. Only the speech bubble needs it: the SVG mascot
+ * paints itself with inline styles. Every value has a fallback; theme through
+ * the custom properties on any ancestor.
+ */
+.om-bubble {
+  position: relative;
+  width: var(--om-bubble-width, min(72vw, 17rem));
+  transform-origin: bottom right;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.om-bubble__card {
+  padding: 0.75rem 1rem;
+  border-radius: 1rem 1rem 0.5rem 1rem;
+  background: var(--om-bubble-bg, #fff);
+  box-shadow: var(--om-bubble-shadow, 0 6px 20px -8px rgb(0 0 0 / 0.12));
+}
+
+.om-bubble__card--dismissable {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.om-bubble__speaker {
+  margin: 0;
+  color: var(--om-bubble-fg, #111);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.om-bubble__text {
+  margin: 0.25rem 0 0;
+  color: var(--om-bubble-muted, #555);
+  font-size: 0.875rem;
+  line-height: 1.375;
+}
+
+/* The tail keeps the card's colour and hangs under the square corner, rotated toward the mushroom. */
+.om-bubble__tail {
+  position: absolute;
+  color: var(--om-bubble-bg, #fff);
+  transform: rotate(-40deg);
+}
