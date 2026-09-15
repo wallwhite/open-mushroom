@@ -32,6 +32,13 @@
 - **Workspace package in dev:** `next.config.ts` conditional `turbopack.resolveAlias` (dev only); relative paths from app root (absolute paths fail)
 - **Package prerequisite:** Root `dev` script runs `pnpm build:package` before starting the lab to ensure types are available for ESLint/TypeScript
 
+## Lab Module Conventions
+
+- **UI copy:** All UI strings (labels, hints, button text) live in `messages.lab` namespace; no hardcoded English or other languages in component files
+- **No Cyrillic in sources:** Module source files contain no Cyrillic characters outside of comments (tests and `messages.json` are exceptions)
+- **Core-only imports:** Lab components import from `open-mushroom` (components, types) and `open-mushroom/core` (constants, helpers); no deep package imports
+- **Headless API:** Methods exposed on `window.__mushroomLab` are not semver-protected; used by QA/CI scripts only
+
 ## Toolchain
 
 **Node version enforcement:**

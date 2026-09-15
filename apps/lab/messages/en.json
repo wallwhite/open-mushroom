@@ -20,7 +20,73 @@
     "description": "The page you asked for does not exist.",
     "home": "Back to the lab"
   },
-  "home": {
-    "placeholder": "The playground lands here shortly."
+  "lab": {
+    "title": "Mushroom Lab",
+    "preview": {
+      "lookAtHint": "Click the preview to point the gaze"
+    },
+    "cta": {
+      "docs": "Documentation",
+      "copy": "Copy the install command",
+      "copied": "Copied"
+    },
+    "emotions": {
+      "title": "Emotions"
+    },
+    "idle": {
+      "title": "Idle life",
+      "blink": "blink",
+      "gaze": "gaze (saccades)",
+      "breathe": "breathe",
+      "shimmer": "shimmer",
+      "talking": "talking (streaming text)",
+      "blinkNow": "Blink now",
+      "lookCentre": "Look centre",
+      "hint": "Click the preview to point the gaze."
+    },
+    "bubble": {
+      "title": "Speech bubble",
+      "set": {
+        "demo": "Demo lines"
+      },
+      "speaker": "Mushroom",
+      "next": "Next line",
+      "hide": "Hide",
+      "show": "Show",
+      "showInPreview": "Show this line next to the mushroom",
+      "counter": "{index}/{total} · {chars} chars",
+      "lines": [
+        "Your plan says salad. Your face says pizza.",
+        "I counted the calories. I will not say the number.",
+        "A second helping is still one helping, if you think about it.",
+        "The fridge light saw everything.",
+        "Breakfast at noon is a lifestyle, not a mistake.",
+        "Water first. Then we discuss the cookies."
+      ]
+    },
+    "scene": {
+      "title": "Scene",
+      "size": "Size",
+      "backgroundLabel": "Background",
+      "background": {
+        "page": "page",
+        "card": "card",
+        "fab": "accent",
+        "dark": "dark"
+      },
+      "secondInstance": "Second instance (56 px header)",
+      "secondInstanceName": "Mushroom Gennadiyovych",
+      "secondInstanceRole": "keeps an eye on the header",
+      "overlay": {
+        "slots": "overlay: slots",
+        "labels": "overlay: labels",
+        "pivots": "overlay: pivots",
+        "clips": "overlay: clips"
+      },
+      "onion": "Onion",
+      "onionEmotion": "Onion-skin emotion",
+      "onionOpacity": "Onion-skin opacity",
+      "none": "none"
+    }
   }
 }

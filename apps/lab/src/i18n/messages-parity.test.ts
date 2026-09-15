@@ -3,17 +3,15 @@ import { describe, expect, it } from 'vitest';
 import en from '../../messages/en.json';
 import uk from '../../messages/uk.json';
 
-interface MessageTree {
-  [key: string]: MessageTree | string;
-}
+/* A catalogue is strings nested in objects; lists of strings (the demo lines) are objects with numeric keys. */
+type MessageNode = string | MessageNode[] | { [key: string]: MessageNode };
 
 /* Flattens a message tree into dotted keys with their values. */
-const flatten = (tree: MessageTree, prefix = ''): Array<[string, string]> =>
-  Object.entries(tree).flatMap(([key, value]) => {
-    const path = prefix === '' ? key : `${prefix}.${key}`;
+const flatten = (tree: MessageNode, prefix = ''): Array<[string, string]> => {
+  if (typeof tree === 'string') return [[prefix, tree]];
 
-    return typeof value === 'string' ? [[path, value]] : flatten(value, path);
-  });
+  return Object.entries(tree).flatMap(([key, value]) => flatten(value, prefix === '' ? key : `${prefix}.${key}`));
+};
 
 describe('message catalogues', () => {
   const english = flatten(en);

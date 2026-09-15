@@ -65,3 +65,42 @@ Every page includes hreflang alternates and Open Graph locale:
 - Every animation tracked in per-rig registry, killed on unmount
 - Reduced motion = instant frames, no idle life
 - Inline ink/white paint (`--om-ink`, `--om-white`, `--om-ink-stroke`)
+
+## Lab Page (Interactive Playground)
+
+**Composition:**
+```
+MushroomLab
+├─ Preview stage (flex-1)
+│  ├─ MushroomRig (animation manager)
+│  ├─ Speech bubble (optional, positioned above character)
+│  ├─ Overlay layer (debug slots/labels/pivots/clips, conditional)
+│  └─ CTA row (Documentation link, npm install snippet)
+└─ Control panels (aside, lg:w-[26rem]; stacked below on mobile)
+   ├─ Emotion grid (7 emotion thumbnails)
+   ├─ Idle life (toggle blink/gaze/breathe/shimmer/talking)
+   ├─ Speech bubble (select demo line, show in preview)
+   └─ Scene (size, background, second instance, overlay toggles, onion-skin)
+```
+
+**State Flow:**
+1. `MushroomLab` reducer manages: emotion, size, mounted, holdAt, speech bubble (text, visible), idle toggles, overlay toggles
+2. State changes dispatch to reducer actions: `patch`, `bubble`, `idle`, `overlay`
+3. `MushroomRig` animates based on state; all animations tracked globally
+4. Overlay polls SVG path data every 120 ms (only when overlay enabled) to read slot geometry
+
+**Headless QA Interface:**
+- `window.__mushroomLab` registered while playground mounted
+- Methods (no semver guarantee): `setEmotion(id)` (validates against core MUSHROOM_EMOTIONS), `setSize(px)`, `setMounted(bool)`, `holdAt(progress | null)` (pauses next transitions at progress share), `pause/play/seek/timeScale` (animation control), `showBubble(text)`, `snapshot()` (emotion, target, transitioning, progress, activeTweens, ready, active), `pageActiveTweens()` (total GSAP tweens on page)
+- Used by CI/visual QA scripts; **not part of public API**
+
+**Data Flow (Overlay):**
+```
+Preview SVG (data-mushroom-root, data-mushroom-slot attributes)
+                  ↓
+           [120ms poll trigger]
+                  ↓
+     lab-overlay-layer reads getBBox + computed opacity
+                  ↓
+      Renders debug labels/pivots/clips with MUSHROOM_SLOT_DEBUG_COLORS
+```

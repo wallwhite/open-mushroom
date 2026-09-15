@@ -10,11 +10,11 @@ Open Mushroom is a standalone, open-source monorepo extracting an animated chara
 - Complete testing suite (87 tests, 16 files)
 - ESLint configuration mirroring upstream project
 
-**Includes in v0.1 (planned before release):**
-- Lab app shell: Next.js 16 with i18n routing, metadata, header/footer (complete; phase 6 adds interactive controls)
-- Lab page: Emotion/size/speech bubble controls with live code examples
-- Docs page: API reference and integration guides
-- Bundling configuration and npm publish workflow
+**Includes in v0.1 (shipped or in progress):**
+- Lab app shell: Next.js 16 with i18n routing, metadata, header/footer ✓ Complete
+- Lab page: Interactive playground with emotion/size/speech bubble/scene controls, debug interface for QA ✓ Complete
+- Docs page: API reference, integration guides, and QA methodology (planned)
+- Bundling configuration and npm publish workflow ✓ Complete
 
 **Excludes (post-v0.1):**
 - State machine and presence layer

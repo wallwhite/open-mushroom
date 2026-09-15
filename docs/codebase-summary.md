@@ -50,17 +50,54 @@ open-mushroom/
 - `i18n/request.ts`: `getRequestConfig` with locale read via `next/root-params` + `hasLocale` check
 - `i18n/navigation.ts`: `createNavigation` for `Link`, `useRouter` with locale awareness
 - `app/[locale]/layout.tsx`: Root layout with `NextIntlClientProvider`, metadata (hreflang alternates), fonts (Montserrat via `next/font`), site header/footer
-- `app/[locale]/page.tsx`: Index page with `<Mushroom />` component (stub, replaced in phase 6)
+- `app/[locale]/page.tsx`: Index page with `<MushroomLab />` component (interactive playground)
 - `app/{robots.ts,sitemap.ts,not-found.tsx}`: Static routes and 404 handler
 - `components/layout/`: `site-header`, `site-footer`, `locale-switcher`, `page-container` (full-width containers with max-width content)
 - `components/ui/button.tsx`: cva variants (default, destructive, outline, ghost, cta, xs, icon-*)
 - `components/icons/github-mark-icon.tsx`: Octicon `mark-github` (MIT)
 - `lib/site-config.ts`: `siteUrl`, repo/npm URLs from env `APP_URL`
 - `lib/utils.ts`: `cn()` class merging utility
-- `messages/{en,uk}.json`: i18n copy with namespaces (metadata, header, footer, notFound)
+- `messages/{en,uk}.json`: i18n copy with namespaces (metadata, header, footer, notFound, **lab**)
+- `modules/lab/`: Interactive character playground (see Lab Module section below)
 - `vitest.config.ts`: Tests for routing and message parity
 
 **Package consumption:** `transpilePackages: ['open-mushroom']`; in dev, Turbopack `resolveAlias` maps imports to `src/` (HMR); in production, `next build` consumes compiled `dist/`.
+
+## Lab Module (Interactive Playground)
+
+**Location:** `apps/lab/src/modules/lab/`
+
+**Component tree:**
+- `components/mushroom-lab.tsx`: Main playground (preview + four-panel aside on lg, stacked below on mobile)
+- `components/lab-preview-stage.tsx`: Character preview with optional speech bubble and CTA row
+- `components/lab-preview-cta.tsx`: Documentation link and npm install snippet (with copy button)
+- `components/lab-install-snippet.tsx`: Copy-to-clipboard with Clipboard API fallback to text selection
+- `components/lab-emotion-grid.tsx`: Seven emotion thumbnails (50×50 px) with aria-pressed states
+- `components/lab-idle-panel.tsx`: Toggles for idle life aspects (blink, gaze, breathe, shimmer, talking) + manual blink/look-centre buttons
+- `components/lab-bubble-panel.tsx`: Single demo line set selector, current line display (button wrapper, aria-label), next/hide controls
+- `components/lab-stage-controls.tsx`: Size (40–400 px), background (page/card/fab/dark), second instance toggle (56 px header), overlay toggles (slots/labels/pivots/clips), onion-skin (emotion + opacity)
+- `components/lab-overlay-layer.tsx`: Debug overlay reading SVG path data every 120 ms, renders slot labels/pivots/clips with `MUSHROOM_SLOT_DEBUG_COLORS` from core
+- `components/lab-panel.tsx`: Reusable panel wrapper (title, collapsible on mobile)
+
+**State management:**
+- `state/lab-state.ts`: Reducer with actions (patch, bubble, idle, overlay) managing emotion, size, mounted, holdAt, speechBubble visibility/text, idle toggles, scene settings
+- Actions: `patch` (emotion/size/mounted/holdAt), `bubble` (text, visible), `idle` (idleParts map), `overlay` (slot/label/pivot/clip toggles)
+
+**Hooks:**
+- `use-lab-debug-handle.ts`: Registers `window.__mushroomLab` (headless QA surface) with methods: setEmotion, setSize, setMounted, holdAt, pause/play/seek/timeScale, showBubble, snapshot(), pageActiveTweens()
+- `use-lab-hold.ts`: rAF-watcher pausing each emotion transition at `holdAt` progress share
+- `use-page-active-tweens.ts`: Counts live GSAP animations via `globalTimeline` (returns total active tweens across page)
+
+**Constants:**
+- `constants/lab-presets.ts`: Size array (40, 56, 64, 96, 160, 240, 400), background names, second instance role text, overlay polling interval (120 ms)
+
+**Tests:**
+- `state/lab-state.test.ts`: Reducer actions and state invariants
+- `lab-bubble-lines.test.ts`: Demo lines parity (six lines per locale, ≤70 chars, no exclamation marks)
+
+**Localization:**
+- `messages.lab`: namespace with title, emotion grid, idle panel, speech bubble (including six demo lines), scene controls, CTA copy
+- No Cyrillic in module sources (tests only; copy via messages)
 
 ## Public Package Exports
 

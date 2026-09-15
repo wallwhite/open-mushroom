@@ -38,17 +38,20 @@ Living document tracking progress toward v0.1.0 and beyond.
    - SSG pages with robots.txt and sitemap.xml
    - Dev HMR with workspace package aliasing, production consumption via compiled dist
    - 91 tests passing (routing, message parity, all quality gates green)
-   - Placeholder page (lab controls added in phase 6)
 
-7. **Lab page** (planned)
-   - Interactive Mushroom controls (emotion, size, speech bubble)
-   - Live code examples and snippets
-   - Performance and layout testing
+7. **Lab page (Interactive Playground)** ✓ Complete
+   - Four control panels: Emotions (7 emotion buttons), Idle life (blink/gaze/breathe/shimmer/talking + blink-now/look-centre), Speech bubble (demo line set + preview trigger), Scene (size/background/overlay/onion-skin)
+   - Character preview with optional speech bubble positioned above
+   - Call-to-action row: documentation link and npm install snippet (Clipboard API with fallback)
+   - Debug overlay: slot labels, pivots, clips with computed SVG geometry
+   - Headless QA interface (`window.__mushroomLab`): holdAt (pause animations at progress), pageActiveTweens, emotion/size/mount/bubble control, snapshot()
+   - Responsive layout: preview + aside on lg, stacked below on mobile
+   - 20 tests green (reducer, message parity, bubble lines ≤70 chars)
 
 8. **Docs page** (planned)
-   - API reference (types, components, hooks)
-   - Integration guides
-   - Accessibility audits and QA
+   - API reference (types, components, hooks, core constants)
+   - Integration guides and examples
+   - Accessibility audit results and QA methodology
 
 ## Post-v0.1
 
