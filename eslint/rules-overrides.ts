@@ -28,6 +28,8 @@ export const toolingOverrides: Linter.RulesRecord = {
   'no-console': 'off',
   'no-magic-numbers': 'off',
   'sonarjs/cognitive-complexity': 'off',
+  // Cut tables and QA scripts repeat slot names and selectors by design; a constant per name would hide the data.
+  'sonarjs/no-duplicate-string': 'off',
   'unicorn/no-await-expression-member': 'off',
   'unicorn/no-process-exit': 'off',
 };

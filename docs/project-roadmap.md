@@ -18,10 +18,12 @@ Living document tracking progress toward v0.1.0 and beyond.
    - React components and hooks (`Mushroom`, `MushroomSpeechBubble`)
    - Public API: 8 types + 2 components
 
-4. **Skeleton pipeline** (in progress)
-   - SVG-to-manifest build tooling (track B)
-   - Zod schema validation for manifests
-   - Source checksum validation
+4. **Skeleton pipeline** ✓ Complete
+   - SVG-to-manifest build tooling: seven emotions + hat, 24-slot knife cuts, pupil geometry, outline normalization
+   - Deterministic JSON output (sha256 validation, byte-identical across runs)
+   - Zod schema validation for manifests; hand-written types for public API
+   - Pixel-level raster gates (mismatch ≤0.5%, blobs ≤40 px², pupil ratios); all 7 emotions pass
+   - `pnpm mushroom:build` and `pnpm mushroom:check` CLI ready for development and CI
 
 5. **Package bundling & release** ✓ Complete
    - tsdown bundler: two ESM entries, declarations, sourcemaps
@@ -37,7 +39,7 @@ Living document tracking progress toward v0.1.0 and beyond.
    - Marketplace-ready URL locale detection (Accept-Language → redirect)
    - SSG pages with robots.txt and sitemap.xml
    - Dev HMR with workspace package aliasing, production consumption via compiled dist
-   - 91 tests passing (routing, message parity, all quality gates green)
+   - CI integration pending: `mushroom:check` wiring into GitHub Actions
 
 7. **Lab page (Interactive Playground)** ✓ Complete
    - Four control panels: Emotions (7 emotion buttons), Idle life (blink/gaze/breathe/shimmer/talking + blink-now/look-centre), Speech bubble (demo line set + preview trigger), Scene (size/background/overlay/onion-skin)

@@ -11,7 +11,8 @@ Next.js lab and documentation site, `tools/` holds the skeleton build pipeline (
 
 ## Conventions
 
-- kebab-case file names, files under 200 lines, layer-first module layout
+- kebab-case file names, files under 200 lines (documented exceptions: the two skeleton pipeline modules named in
+  `CONTRIBUTING.md`), layer-first module layout
 - Comments explain why; never reference plans, phases or review findings in code or file names
 - The ESLint flat config (`eslint.config.ts` + `eslint/rules-*.ts`) mirrors the upstream rule set 1:1; the
   reference lives in `eslint/reference/upstream-effective-rules.txt`. Do not relax rules to make lint pass

@@ -33,6 +33,25 @@ pnpm check       # lint, format, typecheck, test (all run build:package first)
 - size-limit: gzip budget 115 kB for `import { Mushroom }` (currently ~98 kB)
 - typecheck:consumer: smoke test against built declarations
 
+## Manifest Generation
+
+**Rebuild manifests from Figma exports:**
+```bash
+pnpm --filter open-mushroom mushroom:build              # Rebuild, validate gates, exit 1 if any fail
+pnpm --filter open-mushroom mushroom:build --debug      # Also write debug PNGs to .mushroom-debug/
+pnpm --filter open-mushroom mushroom:build --report out.md  # Write gate metrics as markdown
+```
+
+**Verify manifests match committed versions (CI gate):**
+```bash
+pnpm mushroom:check       # At root (all workspaces) or package level
+                          # = mushroom:build + git diff --exit-code on generated files
+```
+
+**When to rebuild:** Anytime `assets/source/*.svg` or `tools/skeleton/cut-plan.ts` changes. Always regenerate and commit the manifests together with any source changes.
+
+**Development note:** paper.js resolves `jsdom` via bare require, which in this workspace would otherwise pick up jsdom 27 (from React test dependencies) whose window cannot be removed. `pnpm-workspace.yaml` packageExtensions pins paper to jsdom ^16.7.0 (via paper-jsdom). This is a dev-only concern; the build pipeline never runs in production.
+
 ## Lab App (Next.js 16)
 
 ### Local Development

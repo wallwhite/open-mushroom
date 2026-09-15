@@ -11,17 +11,21 @@
 - **ESLint 9.39.5** flat config (`eslint.config.ts` via jiti)
   - Maps upstream rule set 1:1 (`eslint/reference/upstream-effective-rules.txt`)
   - Nine deprecated rules remapped (`eslint/rule-renames.ts`)
-  - Overrides for tests, tooling, declarations, lint config
+  - Overrides for tests, tooling, declarations, lint config (`eslint/rules-overrides.ts`)
   - Parity tests: `config-smoke.test.ts`, `rules-parity.test.ts`
+- **Tooling overrides** (`tools/**`, `scripts/**`, `qa/**`): `import-x/no-extraneous-dependencies` allows devDeps, `no-await-in-loop` off (sequential processing), `no-console` off, `sonarjs/no-duplicate-string` off (cut plans repeat slot names by design)
 - **Prettier 3.9:** single quotes, semicolons, width 120, trailing commas, packagejson plugin
+  - `.prettierignore` excludes `.mushroom-debug/` (build pipeline debug output)
 
 ## Code Patterns
 
 - Kebab-case filenames, max 200 lines, one concern per file
+  - **Exceptions:** `tools/skeleton/cut-plan.ts` (270 lines, knife geometry algorithm non-separable), `tools/skeleton/normalize-path-start.ts` (221 lines, SVG path normalization non-separable). Both must maintain output determinism.
 - Colocated tests (`*.test.ts`); fixtures in `fixtures/`
 - Layer-first module layout
 - Comments explain invariants and trade-offs, not obvious code
 - No local paths, plan references, or tool names in code
+- Build pipeline modules (`tools/skeleton/`) anchor on `import.meta.dirname`, never on `process.cwd()` — ensuring portability across working directories
 
 ## Next.js 16 Lab App Conventions
 

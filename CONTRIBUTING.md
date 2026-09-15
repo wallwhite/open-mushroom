@@ -23,7 +23,9 @@ pnpm check       # Runs lint, format, typecheck, test (all call build:package fi
 
 ## Code Conventions
 
-- **Files:** kebab-case, under 200 lines each; colocated tests (`*.test.ts`)
+- **Files:** kebab-case, under 200 lines each; colocated tests (`*.test.ts`). Two skeleton pipeline modules
+  (`tools/skeleton/cut-plan.ts`, the cut tables, and `normalize-path-start.ts`, one algorithm) are the documented
+  exceptions: splitting them would change the generated manifests
 - **Commits:** Conventional format (`feat:`, `fix:`, `docs:`, etc.); no AI references
 - **TypeScript:** Strict mode with `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, etc.
 - **Comments:** Explain _why_, not _what_; no local paths or tool references

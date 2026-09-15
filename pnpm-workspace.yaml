@@ -23,3 +23,11 @@ minimumReleaseAge: 4320
 peerDependencyRules:
   allowedVersions:
     'eslint-plugin-unicorn>eslint': '9'
+
+# paper.js finds jsdom through a bare require. Without a declared dependency the hoisted copy wins (the
+# jsdom the React tests use), whose window cannot be removed, and paper's headless canvas fallback throws.
+# paper-jsdom pins jsdom 16 for exactly this; the extension hands the same version to paper itself.
+packageExtensions:
+  paper:
+    dependencies:
+      jsdom: ^16.7.0

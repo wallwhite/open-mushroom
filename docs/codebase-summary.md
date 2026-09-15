@@ -5,12 +5,17 @@
 ```
 open-mushroom/
 ├── packages/
-│   └── open-mushroom/src/
-│       ├── core/             # Rig, animations, constants, helpers, types
-│       ├── react/            # React components, hooks, utilities
-│       ├── styles/           # mushroom.css
-│       ├── index.ts          # Client entry (components + types)
-│       └── core/index.ts     # Headless entry (values, RSC-safe)
+│   └── open-mushroom/
+│       ├── assets/
+│       │   ├── source/        # Figma exports (seven emotions + hat SVG)
+│       │   └── README.md      # Pipeline documentation and commands
+│       ├── tools/skeleton/    # Build pipeline: CLI, modules, tests, schema
+│       ├── src/
+│       │   ├── core/          # Rig, animations, constants, helpers, types, generated manifests
+│       │   ├── react/         # React components, hooks, utilities
+│       │   └── styles/        # mushroom.css
+│       ├── index.ts           # Client entry (components + types)
+│       └── core/index.ts      # Headless entry (values, RSC-safe)
 ├── apps/
 │   └── open-mushroom-lab/src/  # Next.js 16 lab playground (private)
 │       ├── app/[locale]/      # Dynamic locale-routed pages
@@ -34,10 +39,19 @@ open-mushroom/
 - Stylesheet copied to dist/, exported as `./styles.css`
 - Peers (react, react-dom, gsap) never bundled
 
+**Face skeleton build pipeline:** `tools/skeleton/build-mushroom-skeleton.ts` (CLI) + 19 supporting modules
+- Inputs: Figma exports (`assets/source/*.svg` — seven emotions + hat)
+- Outputs: deterministic JSON manifests (`src/core/generated/*.{emotions,hat}.generated.json`)
+- Gates: pixel mismatch ≤0.5%, max connected blob ≤40 px², pupil geometry, manifest sha256
+- Development dependencies: paper 0.12.18, paper-jsdom 0.12.18 (headless SVG context), sharp 0.35.4 (raster validation), tsx
+- CI guard: `pnpm mushroom:check` = build + `git diff --exit-code` on generated files
+
 **Quality gates:** publint, arethetypeswrong (ESM-only), size-limit (115 kB gzip)
 
 **Scripts:** `lint` (ESLint 9), `format` (Prettier 3.9), `typecheck`, `test` (Vitest)
 - `pnpm check`: lint → format → typecheck → typecheck:consumer → test
+- `pnpm mushroom:build [--debug] [--report <file.md>]`: rebuild manifests from SVG sources
+- `pnpm mushroom:check`: verify build output matches committed manifests (CI gate)
 - `pnpm lint:package`: publint + arethetypeswrong + size-limit before npm publish
 - Pre-commit: husky + lint-staged (format and lint staged files)
 

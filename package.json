@@ -13,6 +13,7 @@
     "format:fix": "prettier --write .",
     "lint": "pnpm build:package && eslint . --max-warnings 0",
     "lint:fix": "pnpm build:package && eslint . --fix",
+    "mushroom:check": "pnpm --filter open-mushroom mushroom:check",
     "prepare": "husky",
     "release:publish": "pnpm --filter open-mushroom build && pnpm --filter open-mushroom lint:package && pnpm audit --prod --audit-level=high && changeset publish",
     "test": "pnpm build:package && vitest run",

@@ -37,14 +37,30 @@ Every page includes hreflang alternates and Open Graph locale:
 
 `i18n/messages-parity.test.ts` ensures both `en.json` and `uk.json` define the same namespaces and keys, with no empty values.
 
+## Manifest Generation Pipeline
+
+**Source:** Figma exports (`assets/source/*.svg` — seven emotions + hat)
+
+**Pipeline:** `tools/skeleton/build-mushroom-skeleton.ts` performs:
+1. **Parse:** Load SVG headlessly via paper.js, extract path items by order
+2. **Cut:** Apply emotion-specific knife plans (convex shapes in source coordinates) to fuse paths into 24 semantic slots
+3. **Pupil extraction:** Compute pupil geometry from hull consensus and least-squares circle fit
+4. **Register:** Align `thinking` (different frame size) into shared face space via scale/rotate/translate
+5. **Normalize paths:** Rewrite outlines by anatomical start points (stroke ends via ray casting), equalize anchor counts per slot
+6. **Validate gates:** Rasterize at 768px, enforce pixel mismatch ≤0.5%, max blob ≤40 px², pupil radius ratios, manifest schema
+7. **Write:** Deterministic JSON (stable key order, 1-decimal precision) with source sha256 fingerprint
+
+**CI guard:** `pnpm mushroom:check` (root or package) rebuilds and verifies `git diff --exit-code` on generated files — ensures sources and manifests stay in sync
+
 ## Package Structure
 
 **Core** (`src/core/`):
 - Animations: GSAP loader (lazy), rig context, runtime, idle loops, morphs, scenarios per emotion
-- Constants: emotions, slots, layout, manifest loader, palettes, timings, tuning, idle profiles
+- Constants: emotions, slots, layout, palettes, timings, tuning, idle profiles
 - Helpers: geometry, face anchor calculations
-- Types: handle, manifest types (hand-written + schema)
-- Generated: manifests from SVG skeleton (emotions, hat)
+- Types: handle, manifest types (hand-written, validated by zod schema in build pipeline)
+- Generated: manifests (`*.generated.json`) — emotions, hat; produced by build pipeline, committed to repo
+- Schema: zod validation (in `tools/skeleton/`, used at build time and by tests, never imported at runtime)
 
 **React** (`src/react/`):
 - Components: `Mushroom`, `MushroomSpeechBubble`; parts: `mushroom-hat`, `mushroom-body`, `mushroom-face`, `mushroom-eye`, `mushroom-slot-path`
