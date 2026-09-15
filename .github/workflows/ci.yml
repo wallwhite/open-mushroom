@@ -14,6 +14,55 @@ permissions:
 
 jobs:
   quality:
+    name: Lint, format, typecheck, test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # The lab's lint and typecheck read the package's declarations, so the package is compiled first.
+      - run: pnpm build:package
+      - run: pnpm lint
+      - run: pnpm format
+      - run: pnpm typecheck
+      - run: pnpm test
+
+  build:
+    name: Build package and lab
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+
+  generated-sync:
+    name: Skeleton manifests in sync with the artwork
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Rebuilds the manifests from the source exports and fails on any byte of difference.
+      - run: pnpm mushroom:check
+
+  package:
+    name: Package contract, audit and leak gate
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -25,7 +74,20 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build:package
-      - run: pnpm lint
-      - run: pnpm format
-      - run: pnpm typecheck
-      - run: pnpm test
+      - run: pnpm --filter open-mushroom lint:package
+      # What would ship: only the compiled output, the readme, the changelog and the two licenses.
+      - name: Inspect the tarball
+        run: |
+          pnpm --filter open-mushroom pack --pack-destination "$RUNNER_TEMP/pack"
+          tar -tzf "$RUNNER_TEMP"/pack/*.tgz | sort | tee "$RUNNER_TEMP/tarball.txt"
+          if grep -vE '^package/(dist/|README\.md$|CHANGELOG\.md$|LICENSE$|LICENSE-ASSETS$|package\.json$)' "$RUNNER_TEMP/tarball.txt"; then
+            echo "unexpected files in the tarball" && exit 1
+          fi
+      - run: pnpm audit --prod --audit-level=high
+      # Nothing from a developer machine or the character's first home may reach the public tree.
+      # This step is excluded from its own scan: it is the one place those words belong.
+      - name: Leak gate
+        run: |
+          if grep -rnE '/Users/|yarikrom|silpo' --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=.next --exclude-dir=dist --exclude=CHANGELOG.md --exclude=ci.yml .; then
+            echo "private identifiers found" && exit 1
+          fi

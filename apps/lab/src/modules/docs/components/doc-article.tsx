@@ -15,8 +15,9 @@ interface DocArticleProps {
 export const DocArticle = async ({ slug, locale }: DocArticleProps) => {
   const { default: Content } = await loadDoc(slug, locale);
 
+  /* Links take the dark orange rather than the brand fill: the fill is a background colour and reads at 2.2:1 as text. */
   return (
-    <article className="prose prose-neutral max-w-none prose-headings:font-bold prose-a:text-primary prose-code:before:content-none prose-code:after:content-none">
+    <article className="prose prose-neutral max-w-none prose-headings:font-bold prose-a:text-accent-foreground prose-code:before:content-none prose-code:after:content-none">
       <Content />
       <DocsPager slug={slug} locale={locale} />
     </article>

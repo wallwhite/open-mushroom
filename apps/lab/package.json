@@ -6,6 +6,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev --port 3001",
+    "qa:frames": "tsx qa/lab-frames.ts",
     "start": "next start --port 3001",
     "test": "vitest run",
     "typecheck": "next typegen && tsc --noEmit"
@@ -36,6 +37,7 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.12",
     "typescript": "catalog:",
     "vitest": "catalog:"
   }
