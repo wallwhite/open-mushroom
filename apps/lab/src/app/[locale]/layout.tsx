@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { notFound } from 'next/navigation';
@@ -63,6 +64,7 @@ const LocaleLayout = async ({ children, params }: LocaleLayoutProps) => {
           {children}
           <SiteFooter />
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );
