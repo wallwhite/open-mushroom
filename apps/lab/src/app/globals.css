@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
 /* Components carry `dark:` utilities; the lab commits to a single light look, so the variant is bound to a
    `.dark` ancestor that never exists instead of the OS colour scheme. */
@@ -98,4 +99,15 @@
 /* Full-height containers on phones: `dvh` follows collapsing browser toolbars (every supported browser has it). */
 @utility min-h-screen-dvh {
   min-height: 100dvh;
+}
+
+/* Highlighted code from the documentation: the highlighter paints the tokens, the frame is ours. */
+.docs-code pre {
+  margin: 0;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem 3rem 1rem 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.6;
 }

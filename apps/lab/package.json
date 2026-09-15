@@ -11,6 +11,10 @@
     "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "16.3.5",
+    "@types/mdx": "^2.0.14",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "gsap": "catalog:",
@@ -20,10 +24,14 @@
     "open-mushroom": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.1",
+    "shiki": "^4.4.0",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
+    "@tailwindcss/typography": "^0.5.20",
     "@types/node": "^22.20.2",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 import { siteConfig } from '@/lib/site-config';
+import { DOCS_SLUGS, docsPath } from '@/modules/docs/docs-nav';
 
 /* Public pages in both languages; each entry lists its translations for search engines. */
 const localizedEntry = (path: string): MetadataRoute.Sitemap[number] => ({
@@ -16,6 +17,9 @@ const localizedEntry = (path: string): MetadataRoute.Sitemap[number] => ({
   },
 });
 
-const sitemap = (): MetadataRoute.Sitemap => [localizedEntry('/')];
+const sitemap = (): MetadataRoute.Sitemap => [
+  localizedEntry('/'),
+  ...DOCS_SLUGS.map((slug) => localizedEntry(docsPath(slug))),
+];
 
 export default sitemap;

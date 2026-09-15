@@ -50,10 +50,15 @@ Living document tracking progress toward v0.1.0 and beyond.
    - Responsive layout: preview + aside on lg, stacked below on mobile
    - 20 tests green (reducer, message parity, bubble lines ≤70 chars)
 
-8. **Docs page** (planned)
-   - API reference (types, components, hooks, core constants)
-   - Integration guides and examples
-   - Accessibility audit results and QA methodology
+8. **Docs page** ✓ Complete
+   - Seven pages (introduction, emotions, idle-life-and-talking, imperative-handle, speech-bubble, theming-sizing-and-ssr, api-reference) in English and Ukrainian
+   - Live examples (six components, public API only, source read at build time)
+   - MDX with remark-gfm, rehype-slug, shiki syntax highlighting (Turbopack-compatible)
+   - Sidebar navigation (3 groups), previous/next pager, edit-on-GitHub links
+   - Static pre-rendering (20 routes: 7 docs + home, × en/uk); hreflang alternates; sitemap with 14 docs URLs
+   - CopyButton component shared between lab install snippet and code blocks
+   - `MUSHROOM_BUBBLE_ANCHOR` exported from core for responsive speech bubble placement
+   - Registry guard against prototype-key attacks; hostile slugs return 404
 
 ## Post-v0.1
 

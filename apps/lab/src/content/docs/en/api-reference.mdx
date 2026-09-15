@@ -1,0 +1,74 @@
+export const metadata = {
+  title: 'API reference',
+  description: 'Every prop, method and export of open-mushroom and open-mushroom/core.',
+};
+
+# API reference
+
+Components and their types come from `open-mushroom`; values come from `open-mushroom/core`.
+
+## `<Mushroom>`
+
+| Prop        | Type                           | Default | Description                                                     |
+| ----------- | ------------------------------ | ------- | --------------------------------------------------------------- |
+| `emotion`   | `MushroomEmotion`              |         | The face to show; changes morph, see [Emotions](/docs/emotions) |
+| `size`      | `number`                       |         | Side of the square in CSS pixels; also picks the ink stroke     |
+| `talking`   | `boolean`                      | `false` | Mouth chatter while text streams in                             |
+| `idle`      | `boolean \| MushroomIdleParts` | `true`  | `true` all layers, `false` none, or a per-layer object          |
+| `className` | `string`                       |         | Added to the root `<svg>`                                       |
+| `style`     | `CSSProperties`                |         | Merged over the root's `display: block; overflow: visible`      |
+| `ref`       | `Ref<MushroomHandle>`          |         | The [imperative handle](/docs/imperative-handle)                |
+
+## `<MushroomSpeechBubble>`
+
+| Prop        | Type            | Description                                                            |
+| ----------- | --------------- | ---------------------------------------------------------------------- |
+| `text`      | `string`        | The line; the previous one stays while the card fades out              |
+| `visible`   | `boolean`       | Entrance on `true`, exit on `false`                                    |
+| `speaker`   | `string`        | Optional name line above the text                                      |
+| `onDismiss` | `() => void`    | Optional; makes the card clickable and is called when the user taps it |
+| `className` | `string`        | Added to the root                                                      |
+| `style`     | `CSSProperties` | Merged into the root's inline style                                    |
+
+Needs `import 'open-mushroom/styles.css'`. See [Speech bubble](/docs/speech-bubble).
+
+## `MushroomHandle`
+
+| Member                  | Description                                                          |
+| ----------------------- | -------------------------------------------------------------------- |
+| `blink()`               | One extra blink                                                      |
+| `lookAt(dx, dy)`        | Point the gaze; normalised offsets in `-1..1`                        |
+| `getSnapshot()`         | `{ shown, target, transitioning, ready }`, see `MushroomRigSnapshot` |
+| `getActiveTweenCount()` | Diagnostics, not covered by semver                                   |
+| `getActiveTargets()`    | Diagnostics, not covered by semver                                   |
+| `getActiveTimeline()`   | Diagnostics, not covered by semver                                   |
+
+## Types
+
+Exported from both entries: `MushroomEmotion`, `MushroomIdleParts` (`{ blink, gaze, breathe, shimmer }`,
+all booleans), `MushroomHandle`, `MushroomRigSnapshot`, `MushroomTimeline`. From `open-mushroom` only:
+`MushroomProps`, `MushroomSpeechBubbleProps`. From `open-mushroom/core` only: `MushroomGsap`,
+`MushroomSlotId`, `MushroomEmotionFrame`, `MushroomManifest`.
+
+## `open-mushroom/core`
+
+Framework-free values for pickers, overlays and custom integrations.
+
+| Export                                                 | Description                                                                           |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| `MUSHROOM_EMOTIONS`                                    | The seven emotion ids, in the order the lab shows them                                |
+| `ALL_IDLE_PARTS`                                       | `{ blink: true, gaze: true, breathe: true, shimmer: true }`                           |
+| `MUSHROOM_BUBBLE_ANCHOR`                               | `{ right, bottom }` CSS offsets that hang a speech bubble beside the body at any size |
+| `ensureMushroomGsap()`                                 | Loads GSAP with MorphSVG once and returns the instance the rig uses                   |
+| `MUSHROOM_FRAMES`                                      | The face skeleton: path data, pupils and anchors for every emotion                    |
+| `MUSHROOM_SLOT_IDS`                                    | Names of the face slots, in manifest order                                            |
+| `MUSHROOM_EYE_SIDES`, `MUSHROOM_EYE_SLOTS`             | The two eyes and their ring / white / pupil slot ids                                  |
+| `MUSHROOM_SLOT_DEBUG_COLORS`                           | One colour per slot, for overlays                                                     |
+| `MUSHROOM_VIEWBOX`, `FACE_LAYOUT`, `layoutTransform()` | The 640 viewBox and where the face sits in it                                         |
+| `faceToViewBox(point)`                                 | Face-space point (the 1536×1024 artwork frame) to viewBox coordinates                 |
+
+<Callout title="Stability">
+  Everything on this page except the diagnostics members of the handle follows semantic versioning. The skeleton
+  pipeline that produces `MUSHROOM_FRAMES` lives in the repository under `packages/open-mushroom/assets`; its README
+  describes how the manifests are generated.
+</Callout>

@@ -1,0 +1,58 @@
+export const metadata = {
+  title: 'Emotions',
+  description: 'The seven faces of the mascot, the emotion prop, and how a morph between two faces is played.',
+};
+
+# Emotions
+
+The face is a skeleton of named slots (brows, eye rings, whites, pupils, nose, mouth, a hand, a drop of
+drool) with one set of path data per emotion. Changing `emotion` morphs every slot from the face on
+screen to the new one; parts that only exist in one of the two faces cross-fade instead.
+
+<ComponentPreview name="emotion-switcher" />
+
+## The seven ids
+
+| Id         | The face                                             |
+| ---------- | ---------------------------------------------------- |
+| `neutral`  | Resting, slightly bored                              |
+| `staring`  | Wide-eyed, waiting for you to finish the sentence    |
+| `thinking` | Head turned, brows down, hand at the chin            |
+| `sleep`    | Eyes shut, a drop of drool                           |
+| `excited`  | Everything up: brows, eyes, the corners of the mouth |
+| `angry`    | Brows knotted, mouth clenched                        |
+| `drunk`    | Lids half down, a lopsided grin                      |
+
+The list is exported for pickers and validation:
+
+```ts
+import { MUSHROOM_EMOTIONS, type MushroomEmotion } from 'open-mushroom/core';
+
+MUSHROOM_EMOTIONS; // ['neutral', 'staring', 'thinking', 'sleep', 'excited', 'angry', 'drunk']
+```
+
+## How a change plays
+
+- **State comes in through props.** There is no `setEmotion` method; render the component with a new
+  `emotion` and the rig does the rest. This keeps the mascot in step with whatever owns the state:
+  a chat, a form, a router.
+- **The latest prop wins.** A change while a morph is still playing does not queue: the running morph
+  is played out quickly to its own face, and the rig routes on from there, so the character never
+  finishes a stale transition at full length.
+- **`thinking` goes through `staring`.** The thinking face turns the head, drops the brows and brings
+  the hand in at once; a direct morph from any other face travels too far in one step. The rig passes
+  through `staring` on the way in and out, two short readable moves instead of one long one. You do not
+  have to do anything; the waypoint is part of the rig.
+- **Timing is the rig's.** Every transition has a tuned duration and easing; there is no prop to change
+  them. That is deliberate: the character should move the same way in every app that embeds him.
+
+## Reading the state
+
+The root `<svg>` carries `data-mushroom-emotion` (the face it was rendered with on the server) and
+`data-mushroom-target` (the current prop), which is handy in tests. For the live state, including
+whether a morph is in flight, use `getSnapshot()` from the [imperative handle](/docs/imperative-handle).
+
+<Callout tone="warning" title="Unknown ids">
+  `emotion` is typed as the union of the seven ids. Validate values that come from outside TypeScript (a CMS, a query
+  string, a console) against `MUSHROOM_EMOTIONS` before passing them in.
+</Callout>

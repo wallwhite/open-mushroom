@@ -1,0 +1,76 @@
+export const metadata = {
+  title: 'Вступ',
+  description: 'Встановіть Open Mushroom і покажіть Машрума Геннадійовича у React-застосунку за пʼять хвилин.',
+};
+
+# Вступ
+
+Машрум Геннадійович — живий SVG-маскот для React. У нього сім виразів обличчя, що перетікають один
+в одний, idle-життя (кліпання, блукаючий погляд, дихання, мерехтіння), рот, що ворушиться під час
+стрімінгу тексту, і хмаринка з реплікою. Обличчя рендериться на сервері як звичайний SVG; рушій
+анімації підвантажується після монтування.
+
+<ComponentPreview name="basic" />
+
+## Встановлення
+
+```bash
+npm install open-mushroom gsap
+```
+
+`react` і `react-dom` 19 та `gsap` 3.13 або новіший — peer-залежності. GSAP разом із плагіном MorphSVG,
+на якому тримається риг, поширюється за
+[GSAP Standard License](https://gsap.com/community/standard-license/) безкоштовно.
+
+## Перший рендер
+
+```tsx
+import { Mushroom } from 'open-mushroom';
+
+export const Hero = () => <Mushroom emotion="neutral" size={160} />;
+```
+
+`emotion` — один із семи id зі сторінки [Емоції](/docs/emotions), `size` — сторона квадрата в CSS-пікселях.
+Це вся інтеграція: компонент сам володіє рушієм анімації, лінько вантажить його після монтування і
+все прибирає при розмонтуванні.
+
+`Mushroom` — клієнтський компонент. В App Router його можна рендерити зі сторінки-серверного компонента
+без власної клієнтської межі; початкова емоція рендериться на сервері статичною розміткою, тож
+персонаж на екрані ще до того, як виконається будь-який JavaScript.
+
+## Хмаринці потрібна таблиця стилів
+
+Маскот малює себе інлайн-стилями. Таблиця стилів є лише у хмаринки — імпортуйте її один раз:
+
+```tsx
+import 'open-mushroom/styles.css';
+```
+
+Компонент і рецепт розміщення — на сторінці [Хмаринка](/docs/speech-bubble).
+
+## Дві точки входу
+
+<Callout title="Компоненти з кореня, значення з /core">
+  `open-mushroom` — клієнтський модуль: усе, що він експортує, стає клієнтським посиланням усередині React Server
+  Components. Константи й хелпери, як-от список id емоцій, живуть в `open-mushroom/core` — він не залежить від
+  фреймворку і безпечний для імпорту будь-де, на сервері чи на клієнті.
+</Callout>
+
+```ts
+import { Mushroom, MushroomSpeechBubble, type MushroomHandle } from 'open-mushroom';
+import { MUSHROOM_EMOTIONS, type MushroomEmotion } from 'open-mushroom/core';
+```
+
+## Куди далі
+
+- [Емоції](/docs/emotions): сім облич і як працює морф між ними.
+- [Idle-життя і мовлення](/docs/idle-life-and-talking): шари, що тримають його живим, і рот.
+- [Імперативний handle](/docs/imperative-handle): разові дії через ref.
+- [Теми, розміри і SSR](/docs/theming-sizing-and-ssr): кольори, розміри, серверний рендер, reduced motion.
+- [Довідник API](/docs/api-reference): кожен проп і експорт в одному місці.
+
+## Ліцензії
+
+Код — MIT. Малюнок персонажа, і вихідні експорти, і згенеровані маніфести скелета в пакеті, — за
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) з атрибуцією
+«Mushroom character by Yaroslav Romanenko»; див. `LICENSE-ASSETS` у пакеті.

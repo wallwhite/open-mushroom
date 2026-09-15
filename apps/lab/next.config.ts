@@ -1,4 +1,6 @@
 import type { NextConfig } from 'next';
+
+import createMDX from '@next/mdx';
 import createNextIntlPlugin from 'next-intl/plugin';
 
 /*
@@ -17,9 +19,19 @@ const developmentAliases: NextConfig['turbopack'] = {
 
 const nextConfig: NextConfig = {
   transpilePackages: ['open-mushroom'],
+  /* Next already keeps the highlighter external; listed here so that stays true if the default list ever changes. */
+  serverExternalPackages: ['shiki'],
   ...(process.env.NODE_ENV === 'development' ? { turbopack: developmentAliases } : {}),
 };
 
+/* Plugins by name: Turbopack serialises the options for its Rust side, so functions cannot be passed here. */
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: ['remark-gfm'],
+    rehypePlugins: ['rehype-slug'],
+  },
+});
+
 const withNextIntl = createNextIntlPlugin();
 
-export default withNextIntl(nextConfig);
+export default withNextIntl(withMDX(nextConfig));

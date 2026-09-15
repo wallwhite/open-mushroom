@@ -113,9 +113,42 @@ open-mushroom/
 - `messages.lab`: namespace with title, emotion grid, idle panel, speech bubble (including six demo lines), scene controls, CTA copy
 - No Cyrillic in module sources (tests only; copy via messages)
 
+## Docs Module
+
+**Location:** `apps/lab/src/modules/docs/` (7 MDX pages en+uk, 6 live examples, sidebar, pager)
+
+**Registry & Routing:**
+- `docs-registry.ts`: `Map<slug, { en: () => import(…), uk: () => import(…) }>` (not plain object; `/docs/constructor` → 404)
+- `docs-nav.ts`: sidebar navigation (three groups: getting started, guides, reference) + pager order
+- `[locale]/docs/[[...slug]]/page.tsx`: dynamic route with `dynamicParams = false` (static 20 routes total)
+- `docs/layout.tsx`: two-column layout (16rem sticky sidebar on lg, mobile `<details>` disclosure)
+
+**Content & Examples:**
+- `content/docs/{en,uk}/*.mdx`: seven pages (introduction, emotions, idle-life-and-talking, imperative-handle, speech-bubble, theming-sizing-and-ssr, api-reference)
+- `examples/{basic,emotion-switcher,idle-and-talking,look-at-pointer,speech-bubble,theming}.tsx`: client components (≤60 lines, public API only)
+
+**MDX & Rendering:**
+- `@next/mdx` with plugins `remark-gfm`, `rehype-slug`
+- Syntax highlighting: `shiki` (async, server-side, build-time; theme github-light) through the async `<CodeBlock>` and `<ComponentPreview>` server components in the MDX component map
+- `mdx-components.tsx`: component map (h2/h3 anchored, a → locale-aware Link, pre → CodeBlock, table → scrollable wrapper, `Callout`, `ComponentPreview`)
+- `component-preview.tsx` (RSC): reads example source from `node:fs` at build time, tabs Preview (live render) and Code (highlighted, copy button)
+
+**Components & Copy:**
+- `copy-button.tsx`: shared UI (lab install snippet + code blocks); icon swap on copy, 2s timer
+- `docs-sidebar.tsx`: sticky sidebar with groups/pages, aria-current page marking, nested `<details>` on mobile
+- `docs-pager.tsx`: previous/next navigation, edit-on-GitHub link
+- `docs-link.tsx`, `docs-heading.tsx`, `docs-table.tsx`: layout components
+- `preview-tabs.tsx`: tabs (Preview/Code) with keyboard navigation
+- `highlighted-code.tsx`: shiki output wrapper with language label
+
+**Localization:**
+- `messages.docs`: namespace (nav, pager, preview tabs, copy, editOnGitHub)
+- per-page metadata (title, description)
+- both languages mirror structure and example names
+
 ## Public Package Exports
 
 - `open-mushroom`: client components and types
-- `open-mushroom/core`: constants and types (server-safe)
+- `open-mushroom/core`: constants (12 values, incl. `MUSHROOM_BUBBLE_ANCHOR`), types
 - `open-mushroom/styles.css`: stylesheet
 - `open-mushroom/package.json`: package metadata

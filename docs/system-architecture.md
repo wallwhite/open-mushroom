@@ -120,3 +120,49 @@ Preview SVG (data-mushroom-root, data-mushroom-slot attributes)
                   ↓
       Renders debug labels/pivots/clips with MUSHROOM_SLOT_DEBUG_COLORS
 ```
+
+## Documentation Pages (MDX Static Rendering)
+
+**Routing & Registry:**
+```
+User request → [locale]/docs/[[...slug]]/page.tsx
+  ├─ hasLocale(locale) → set locale (en, uk)
+  ├─ slug? → lookup in docs-registry.has(slug)
+  │  └─ not found → notFound() → 404
+  ├─ No slug → index (introduction)
+  └─ Generate metadata (title, alternates hreflang)
+```
+
+**Static Generation:**
+- `generateStaticParams()` returns 14 `{ locale, slug? }` tuples (7 slugs × 2 locales)
+- `dynamicParams = false`: unknown locales/slugs rejected at build (Map-based registry + hasDoc prevent prototype-key attacks)
+- All 20 routes (home + 7×en + 7×uk) prerendered to static HTML at build time
+
+**MDX Compilation & Rendering:**
+```
+Authored:     content/docs/{locale}/{slug}.mdx
+                  ↓
+Parsed:       Unified remark/rehype pipeline
+                  ├─ remark-gfm: tables, strikethrough
+                  └─ rehype-slug: auto id from headings (works with Cyrillic)
+                  ↓
+Compiled:     source/__next_internal__/app/[locale]/docs/[slug]/page.mdx.js (CommonJS requiring)
+                  ↓
+Server RSC:   DocArticle component (awaits params, calls async useMDXComponents)
+                  ├─ Pre-highlighted code blocks (shiki output → dangerouslySetInnerHTML, trusted)
+                  ├─ ComponentPreview (RSC) → readFileSync(examples/<name>.tsx) → shiki highlights source
+                  └─ Markdown rendered through mdx-components map
+                  ↓
+HTML:         Static page with prev/next links, hreflang alternates, edit-on-GitHub
+```
+
+**Example Loading (Build-Time Only):**
+- `component-preview.tsx` (RSC) reads `fs.readFileSync(join(process.cwd(), 'src/modules/docs/examples/<name>.tsx'))`
+- Example source never reaches the client; compiled MDX is a server module
+- Client boundary starts at `PreviewTabs` + `CopyButton` (hydrated inside RSC output)
+- All six examples use only the public API (`open-mushroom` + `open-mushroom/core`)
+
+**Bubble Anchor as Package Export:**
+- `MUSHROOM_BUBBLE_ANCHOR` defined in `core/constants/mushroom-bubble-anchor.ts` (CSS offsets for speech bubble placement)
+- Exported from `open-mushroom/core` (semver-minor additive export)
+- Computed at build time from body layout constants; used by `lab-preview-stage.tsx` for responsive positioning

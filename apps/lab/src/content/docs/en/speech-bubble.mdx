@@ -1,0 +1,80 @@
+export const metadata = {
+  title: 'Speech bubble',
+  description: 'The MushroomSpeechBubble component, its props, and how to hang it beside the character.',
+};
+
+# Speech bubble
+
+A white card with a tail growing out of its bottom-right corner, toward the character sitting below.
+It swings in, it swings out, and it keeps the last line while it fades so the reader never sees an
+empty card shrink away.
+
+<ComponentPreview name="speech-bubble" />
+
+## Setup
+
+The bubble is the one part of the package with a stylesheet. Import it once, in your root layout or
+entry file:
+
+```tsx
+import 'open-mushroom/styles.css';
+```
+
+## Props
+
+```tsx
+<MushroomSpeechBubble
+  text="Water first. Then we discuss the cookies."
+  visible={visible}
+  speaker="Mushroom"
+  onDismiss={() => setVisible(false)}
+/>
+```
+
+| Prop        | Type             | Notes                                                                           |
+| ----------- | ---------------- | ------------------------------------------------------------------------------- |
+| `text`      | `string`         | The line. When it becomes empty, the previous line stays for the exit animation |
+| `visible`   | `boolean`        | Plays the entrance on `true` and the exit on `false`                            |
+| `speaker`   | `string?`        | A bold name line above the text; omitted when not given                         |
+| `onDismiss` | `(() => void)?`  | Makes the card clickable; call it to hide the line the user waved off           |
+| `className` | `string?`        | Added to the root                                                               |
+| `style`     | `CSSProperties?` | Merged into the root's inline style                                             |
+
+Only the card takes pointer events, and only while it is visible; the tail and the space around it
+stay transparent to clicks on the page beneath.
+
+## Placement
+
+The tail grows from the bottom-right corner, so the card belongs beside the body, up and to the
+left of the face: its right edge a little left of the body with a gap, its bottom edge a little above
+the body's centre. `MUSHROOM_BUBBLE_ANCHOR` from `open-mushroom/core` carries exactly that as CSS
+`right` and `bottom` offsets of the character's box, derived from the body's geometry. The vertical
+offset is a percentage; the horizontal one is a `calc()` of a percentage plus the tail's reach in
+pixels, because the tail has a fixed size and would otherwise land on a small character's face. The recipe: a `position: relative` wrapper around the character with room on its left,
+and the bubble positioned on the anchor.
+
+```tsx
+import { MUSHROOM_BUBBLE_ANCHOR } from 'open-mushroom/core';
+
+<div style={{ position: 'relative', marginLeft: '17rem' }}>
+  <div style={{ position: 'absolute', ...MUSHROOM_BUBBLE_ANCHOR }}>
+    <MushroomSpeechBubble text={line} visible={visible} />
+  </div>
+  <Mushroom emotion="excited" size={160} />
+</div>;
+```
+
+The card is `min(72vw, 17rem)` wide by default. Where there is no room beside the character (phones),
+hang it above the head instead, `right: 50%; bottom: 100%`, and cap `--om-bubble-width` on the wrapper
+(for example `min(17rem, calc(50vw - 1rem))`) so it never leaves the viewport; the example above does
+both.
+
+## Accessibility
+
+The bubble is decoration: the root is `aria-hidden`, and its text is not announced. If the line
+matters to people using a screen reader, render it somewhere accessible too, for example in the message
+list it came from.
+
+## Reduced motion
+
+With `prefers-reduced-motion: reduce` the bubble appears and disappears instantly, without the swing.

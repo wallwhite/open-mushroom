@@ -1,0 +1,74 @@
+export const metadata = {
+  title: 'Довідник API',
+  description: 'Кожен проп, метод і експорт open-mushroom та open-mushroom/core.',
+};
+
+# Довідник API
+
+Компоненти та їхні типи — з `open-mushroom`; значення — з `open-mushroom/core`.
+
+## `<Mushroom>`
+
+| Проп        | Тип                            | Типово  | Опис                                                             |
+| ----------- | ------------------------------ | ------- | ---------------------------------------------------------------- |
+| `emotion`   | `MushroomEmotion`              |         | Обличчя; зміни морфляться, див. [Емоції](/docs/emotions)         |
+| `size`      | `number`                       |         | Сторона квадрата в CSS-пікселях; також обирає штрих ліній        |
+| `talking`   | `boolean`                      | `false` | Ворушіння рота, поки тече текст                                  |
+| `idle`      | `boolean \| MushroomIdleParts` | `true`  | `true` — усі шари, `false` — жодного, або обʼєкт по шарах        |
+| `className` | `string`                       |         | Додається до кореневого `<svg>`                                  |
+| `style`     | `CSSProperties`                |         | Зливається поверх кореневого `display: block; overflow: visible` |
+| `ref`       | `Ref<MushroomHandle>`          |         | [Імперативний handle](/docs/imperative-handle)                   |
+
+## `<MushroomSpeechBubble>`
+
+| Проп        | Тип             | Опис                                                             |
+| ----------- | --------------- | ---------------------------------------------------------------- |
+| `text`      | `string`        | Репліка; попередня лишається, поки картка згасає                 |
+| `visible`   | `boolean`       | Поява на `true`, зникнення на `false`                            |
+| `speaker`   | `string`        | Необовʼязковий рядок з імʼям над текстом                         |
+| `onDismiss` | `() => void`    | Необовʼязково; робить картку клікабельною, викликається по кліку |
+| `className` | `string`        | Додається до кореня                                              |
+| `style`     | `CSSProperties` | Зливається з інлайн-стилем кореня                                |
+
+Потребує `import 'open-mushroom/styles.css'`. Див. [Хмаринка](/docs/speech-bubble).
+
+## `MushroomHandle`
+
+| Член                    | Опис                                                                  |
+| ----------------------- | --------------------------------------------------------------------- |
+| `blink()`               | Одне додаткове кліпання                                               |
+| `lookAt(dx, dy)`        | Спрямувати погляд; нормалізовані зміщення в `-1..1`                   |
+| `getSnapshot()`         | `{ shown, target, transitioning, ready }`, див. `MushroomRigSnapshot` |
+| `getActiveTweenCount()` | Діагностика, не покрита semver                                        |
+| `getActiveTargets()`    | Діагностика, не покрита semver                                        |
+| `getActiveTimeline()`   | Діагностика, не покрита semver                                        |
+
+## Типи
+
+З обох точок входу: `MushroomEmotion`, `MushroomIdleParts` (`{ blink, gaze, breathe, shimmer }`, усі
+boolean), `MushroomHandle`, `MushroomRigSnapshot`, `MushroomTimeline`. Лише з `open-mushroom`:
+`MushroomProps`, `MushroomSpeechBubbleProps`. Лише з `open-mushroom/core`: `MushroomGsap`,
+`MushroomSlotId`, `MushroomEmotionFrame`, `MushroomManifest`.
+
+## `open-mushroom/core`
+
+Значення без фреймворку — для пікерів, overlay-ів і власних інтеграцій.
+
+| Експорт                                                | Опис                                                                                         |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| `MUSHROOM_EMOTIONS`                                    | Сім id емоцій у тому порядку, що й у лабораторії                                             |
+| `ALL_IDLE_PARTS`                                       | `{ blink: true, gaze: true, breathe: true, shimmer: true }`                                  |
+| `MUSHROOM_BUBBLE_ANCHOR`                               | `{ right, bottom }` — CSS-зміщення, що вішають хмаринку збоку від тіла на будь-якому розмірі |
+| `ensureMushroomGsap()`                                 | Вантажить GSAP із MorphSVG один раз і повертає інстанс рига                                  |
+| `MUSHROOM_FRAMES`                                      | Скелет обличчя: path-дані, зіниці та якорі кожної емоції                                     |
+| `MUSHROOM_SLOT_IDS`                                    | Назви слотів обличчя в порядку маніфесту                                                     |
+| `MUSHROOM_EYE_SIDES`, `MUSHROOM_EYE_SLOTS`             | Два ока та id їхніх слотів кільця / білка / зіниці                                           |
+| `MUSHROOM_SLOT_DEBUG_COLORS`                           | По кольору на слот, для overlay-ів                                                           |
+| `MUSHROOM_VIEWBOX`, `FACE_LAYOUT`, `layoutTransform()` | viewBox 640 і де в ньому сидить обличчя                                                      |
+| `faceToViewBox(point)`                                 | Точка простору обличчя (кадр малюнка 1536×1024) → координати viewBox                         |
+
+<Callout title="Стабільність">
+  Усе на цій сторінці, крім діагностичних членів handle, підпорядковується семантичному версіонуванню. Пайплайн скелета,
+  що породжує `MUSHROOM_FRAMES`, живе в репозиторії у `packages/open-mushroom/assets`; його README описує, як
+  генеруються маніфести.
+</Callout>

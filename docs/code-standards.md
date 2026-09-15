@@ -43,6 +43,15 @@
 - **Core-only imports:** Lab components import from `open-mushroom` (components, types) and `open-mushroom/core` (constants, helpers); no deep package imports
 - **Headless API:** Methods exposed on `window.__mushroomLab` are not semver-protected; used by QA/CI scripts only
 
+## Documentation Module Conventions
+
+- **MDX plugins by name:** Under Turbopack, `@next/mdx` requires plugin strings (`'remark-gfm'`, `'rehype-slug'`); functions cannot be passed and options must be JSON-serializable, so highlighting is done in the component map instead of a rehype plugin
+- **Content location:** MDX pages live in `apps/lab/src/content/docs/{locale}/{slug}.mdx` by locale; no hardcoded Cyrillic outside Ukrainian content
+- **Examples:** Live in `apps/lab/src/modules/docs/examples/{name}.tsx`; each uses only public API (`open-mushroom` + `open-mushroom/core`); max 60 lines, `'use client'` directive required
+- **UI copy:** All UI strings (sidebar, pager, preview tabs, copy button, edit link) live in `messages.docs` namespace by feature; no hardcoded UI text in components
+- **Registry safety:** `docs-registry.ts` uses `Map<slug, { en, uk }>` (not plain object) to prevent prototype-key attacks; `hasDoc(slug)` gates route resolution; `[slug]/page.tsx` sets `dynamicParams = false`
+- **RSC boundaries:** `component-preview.tsx` (RSC) reads file system; `PreviewTabs` and `CopyButton` are client components with event handlers
+
 ## Toolchain
 
 **Node version enforcement:**

@@ -22,7 +22,7 @@ describe('locale routing', () => {
 
   it('runs the proxy on pages but not on internals, API routes or files', () => {
     expect(matcherLiteral).toBeDefined();
-    for (const path of ['/', '/uk', '/docs/introduction', '/uk/docs/introduction']) {
+    for (const path of ['/', '/uk', '/docs/emotions', '/uk/docs/emotions']) {
       expect(matcher.test(path), path).toBe(true);
     }
     for (const path of ['/_next/static/chunk.js', '/api/health', '/favicon.ico', '/_vercel/insights']) {

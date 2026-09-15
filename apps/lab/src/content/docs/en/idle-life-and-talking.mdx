@@ -1,0 +1,54 @@
+export const metadata = {
+  title: 'Idle life and talking',
+  description: 'The four idle layers that keep the mascot alive between emotions, and the talking mouth.',
+};
+
+# Idle life and talking
+
+An emotion is a still. What makes the character feel alive between changes is the idle life: four
+small loops that run on top of whatever face is showing.
+
+<ComponentPreview name="idle-and-talking" />
+
+## The four layers
+
+| Layer     | What it does                                                                                                                      |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `blink`   | Closes and opens the eyes at irregular intervals, sometimes twice                                                                 |
+| `gaze`    | Small saccades: the pupils glance around and settle again                                                                         |
+| `breathe` | A breath every couple of seconds: the face lifts and swells, the hat follows a beat later, the body underneath swells more slowly |
+| `shimmer` | The body's soft gradients wander and the tint rocks a few degrees                                                                 |
+
+The `idle` prop picks them:
+
+```tsx
+<Mushroom emotion="neutral" size={160} />                       // all four, the default
+<Mushroom emotion="neutral" size={56} idle={false} />            // a still picture
+<Mushroom emotion="neutral" size={160} idle={{ blink: true, gaze: true, breathe: false, shimmer: false }} />
+```
+
+Use `idle={false}` for thumbnails, pickers and lists: a grid of seven faces that all blink is a lot
+of movement for a small area, and it keeps the page's animation count low.
+
+The layers animate their own groups, separate from the ones a morph moves, so idle life and an
+emotion change never fight over the same transform; switching emotions with idle on looks the same as
+switching with it off, plus life.
+
+## Talking
+
+`talking` adds mouth chatter while text is streaming in:
+
+```tsx
+<Mushroom emotion="excited" size={96} talking={isStreaming} />
+```
+
+It is a separate layer from `idle`: quick squash-and-stretch of the mouth with random pauses, on top
+of any emotion. Switch it on when the first token arrives and off when the message is complete; the
+mouth settles back into the face's own shape.
+
+## Reduced motion
+
+When the operating system asks for reduced motion (`prefers-reduced-motion: reduce`), the rig stops the
+idle layers and plays emotion changes as a cut instead of a morph. The prop values are unchanged; the
+rig reads the media query itself and follows it live. See
+[Theming, sizing and SSR](/docs/theming-sizing-and-ssr#reduced-motion).

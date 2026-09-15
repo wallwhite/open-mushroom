@@ -1,0 +1,77 @@
+export const metadata = {
+  title: 'Introduction',
+  description: 'Install Open Mushroom and render Mushroom Gennadiyovych in a React app in five minutes.',
+};
+
+# Introduction
+
+Mushroom Gennadiyovych is a living SVG mascot for React. He has seven facial expressions that morph
+into each other, an idle life (blinks, a wandering gaze, breathing, a slow shimmer in the body), a talking mouth
+for streamed text, and a speech bubble. The face renders on the server as plain SVG; the animation
+engine arrives after mount.
+
+<ComponentPreview name="basic" />
+
+## Install
+
+```bash
+npm install open-mushroom gsap
+```
+
+`react` and `react-dom` 19 and `gsap` 3.13 or newer are peer dependencies. GSAP, including the
+MorphSVG plugin the rig relies on, ships under the
+[GSAP Standard License](https://gsap.com/community/standard-license/) free of charge.
+
+## First render
+
+```tsx
+import { Mushroom } from 'open-mushroom';
+
+export const Hero = () => <Mushroom emotion="neutral" size={160} />;
+```
+
+`emotion` is one of the seven ids from the [Emotions](/docs/emotions) page and `size` is the side of
+the square in CSS pixels. That is the whole integration: the component owns its animation engine, loads
+it lazily on mount and tears everything down on unmount.
+
+`Mushroom` is a client component. In the App Router you can render it from a Server Component page
+without adding a client boundary of your own; the initial emotion is server-rendered as static markup,
+so the character is on screen before any JavaScript runs.
+
+## The speech bubble needs the stylesheet
+
+The mascot paints itself with inline styles. Only the bubble has a stylesheet, imported once:
+
+```tsx
+import 'open-mushroom/styles.css';
+```
+
+See [Speech bubble](/docs/speech-bubble) for the component and the placement recipe.
+
+## Two entry points
+
+<Callout title="Components from the root, values from /core">
+  `open-mushroom` is a client module: everything exported from it becomes a client reference inside React Server
+  Components. Constants and helpers, such as the list of emotion ids, live in `open-mushroom/core`, which is
+  framework-free and safe to import anywhere, server or client.
+</Callout>
+
+```ts
+import { Mushroom, MushroomSpeechBubble, type MushroomHandle } from 'open-mushroom';
+import { MUSHROOM_EMOTIONS, type MushroomEmotion } from 'open-mushroom/core';
+```
+
+## Where to go next
+
+- [Emotions](/docs/emotions): the seven faces and how the morph between them works.
+- [Idle life and talking](/docs/idle-life-and-talking): the layers that keep him alive, and the mouth.
+- [Imperative handle](/docs/imperative-handle): one-shot actions through a ref.
+- [Theming, sizing and SSR](/docs/theming-sizing-and-ssr): colours, sizes, server rendering, reduced motion.
+- [API reference](/docs/api-reference): every prop and export in one place.
+
+## Licenses
+
+The code is MIT. The character artwork, both the source exports and the generated skeleton manifests
+inside the package, is licensed
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) with the attribution
+"Mushroom character by Yaroslav Romanenko"; see `LICENSE-ASSETS` in the package.

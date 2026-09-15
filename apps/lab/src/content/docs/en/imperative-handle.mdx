@@ -1,0 +1,68 @@
+export const metadata = {
+  title: 'Imperative handle',
+  description: 'One-shot actions and diagnostics through the ref: blink, lookAt and getSnapshot.',
+};
+
+# Imperative handle
+
+State (`emotion`, `talking`, `idle`) is props-only. The ref exists for the things that are not
+state: one-shot actions, and reading what the rig is doing right now.
+
+<ComponentPreview name="look-at-pointer" />
+
+## Getting the handle
+
+`Mushroom` takes `ref` as a regular prop (React 19); the handle is typed as `MushroomHandle`.
+
+```tsx
+import { useRef } from 'react';
+import { Mushroom, type MushroomHandle } from 'open-mushroom';
+
+export const Greeter = () => {
+  const ref = useRef<MushroomHandle>(null);
+
+  return (
+    <div onMouseEnter={() => ref.current?.blink()}>
+      <Mushroom ref={ref} emotion="neutral" size={96} />
+    </div>
+  );
+};
+```
+
+The handle is stable for the life of the component and safe to call at any time; before the animation
+engine has loaded, the actions do nothing.
+
+## `blink()`
+
+One extra blink on top of the idle life. Useful as a reaction: a message arrived, a button was pressed,
+the user hovered him.
+
+## `lookAt(dx, dy)`
+
+Points the gaze. `dx` and `dy` are normalised offsets in the range `-1..1` of the eye's travel:
+`(-1, 0)` is all the way left, `(0, 1)` all the way down, `(0, 0)` straight ahead. The example above
+maps the pointer position inside a box to that range and resets to centre when the pointer leaves.
+The gaze holds that point for about a second and a half; then the idle `gaze` layer wanders again
+around the emotion's own resting point. Call it again to keep following, as the example does on every
+pointer move.
+
+## `getSnapshot()`
+
+```ts
+interface MushroomRigSnapshot {
+  shown: MushroomEmotion; // the face the SVG shows right now, the source of the next morph
+  target: MushroomEmotion; // the emotion requested through props
+  transitioning: boolean; // a morph is in flight
+  ready: boolean; // GSAP has loaded and the rig is attached
+}
+```
+
+`shown` and `target` differ while a transition plays and while the rig is on a waypoint (see
+[Emotions](/docs/emotions#how-a-change-plays)). Read it in tests and in QA scripts; there is no event
+for it, because a React app already knows when it changed the prop.
+
+## Diagnostics
+
+`getActiveTweenCount()`, `getActiveTargets()` and `getActiveTimeline()` expose the live GSAP objects
+owned by the rig. They power the lab on this site and are not covered by semver: their shape can change
+in a minor release. Do not build product behaviour on them.

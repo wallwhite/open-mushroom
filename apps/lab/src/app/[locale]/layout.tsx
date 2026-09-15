@@ -9,6 +9,7 @@ import { getTranslations } from 'next-intl/server';
 import 'open-mushroom/styles.css';
 import '@/app/globals.css';
 
+import { localePath } from '@/i18n/locale-path';
 import { routing, type AppLocale } from '@/i18n/routing';
 import { siteConfig } from '@/lib/site-config';
 import { SiteFooter } from '@/components/layout/site-footer';
@@ -20,8 +21,6 @@ interface LocaleLayoutProps {
 }
 
 const montserrat = Montserrat({ subsets: ['latin', 'cyrillic'], variable: '--font-app-sans', display: 'swap' });
-
-const localePath = (locale: AppLocale): string => (locale === routing.defaultLocale ? '/' : `/${locale}`);
 
 export const generateStaticParams = (): Array<{ locale: AppLocale }> => routing.locales.map((locale) => ({ locale }));
 

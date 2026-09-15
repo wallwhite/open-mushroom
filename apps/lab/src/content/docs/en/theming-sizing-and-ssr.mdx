@@ -1,0 +1,71 @@
+export const metadata = {
+  title: 'Theming, sizing and SSR',
+  description:
+    'Custom properties for colours, how size affects the ink, server rendering, lazy GSAP and reduced motion.',
+};
+
+# Theming, sizing and SSR
+
+<ComponentPreview name="theming" />
+
+## Colours
+
+The face is painted with inline styles that read custom properties, so a theme is a few declarations
+on any ancestor:
+
+| Property             | Default                            | What it paints                           |
+| -------------------- | ---------------------------------- | ---------------------------------------- |
+| `--om-ink`           | `#000`                             | Every ink line: brows, eyes, nose, mouth |
+| `--om-white`         | `#fff`                             | The eye whites and the drool             |
+| `--om-bubble-bg`     | `#fff`                             | Bubble card and tail                     |
+| `--om-bubble-fg`     | `#111`                             | The speaker line                         |
+| `--om-bubble-muted`  | `#555`                             | The bubble text                          |
+| `--om-bubble-width`  | `min(72vw, 17rem)`                 | Bubble card width                        |
+| `--om-bubble-shadow` | `0 6px 20px -8px rgb(0 0 0 / .12)` | Bubble card shadow                       |
+
+```css
+.night {
+  --om-ink: #e5e7eb;
+  --om-white: #111827;
+  --om-bubble-bg: #1f2937;
+  --om-bubble-fg: #f9fafb;
+  --om-bubble-muted: #d1d5db;
+}
+```
+
+The hat gradient and the body blob are part of the character and do not change with the theme.
+`className` and `style` go onto the root `<svg>`; `style` is merged over the root's own
+`display: block; overflow: visible`.
+
+## Sizes
+
+`size` is the side of the square in CSS pixels; the drawing is a 640×640 viewBox and scales with it.
+Because the ink lines are filled outlines from the original artwork, they get thin fast: at 56 px a
+line is under half a pixel. The rig compensates with an extra stroke around the ink, chosen from the
+size:
+
+| `size`        | Extra stroke |
+| ------------- | ------------ |
+| up to 44 px   | wide         |
+| 45–95 px      | medium       |
+| 96–159 px     | narrow       |
+| 160 px and up | none         |
+
+Sizes that were tuned by hand and read well: **56** (a header), **64** (a floating button), **96**
+(a card), **240** and up for hero placements. The stroke is set once per render through
+`--om-ink-stroke` on the root; you do not need to set it yourself.
+
+## Server rendering
+
+The component renders the initial `emotion` as static SVG on the server, so the face is in the HTML
+and appears before hydration. GSAP and the MorphSVG plugin are loaded on mount with a dynamic import;
+until they arrive the character is still. They are loaded once per page, shared by every instance.
+
+The package is ESM-only and ships type declarations. `import { Mushroom }` costs about 100 kB gzipped,
+most of it the face geometry; GSAP is a peer dependency and counted separately.
+
+## Reduced motion
+
+The rig follows `prefers-reduced-motion: reduce` live: idle layers stop, emotion changes become cuts,
+the bubble appears without its swing. If the setting changes while the page is open, the rig switches
+with it. Nothing to configure.
