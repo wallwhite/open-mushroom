@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { Analytics } from '@vercel/analytics/next';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Montserrat } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
@@ -12,6 +12,7 @@ import '@/app/globals.css';
 
 import { localePath } from '@/i18n/locale-path';
 import { routing, type AppLocale } from '@/i18n/routing';
+import { BRAND_COLORS } from '@/lib/brand-colors';
 import { siteConfig } from '@/lib/site-config';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
@@ -25,6 +26,9 @@ const montserrat = Montserrat({ subsets: ['latin', 'cyrillic'], variable: '--fon
 
 export const generateStaticParams = (): Array<{ locale: AppLocale }> => routing.locales.map((locale) => ({ locale }));
 
+/* The page is light only, and the browser chrome on a phone should not guess otherwise. */
+export const viewport: Viewport = { colorScheme: 'light', themeColor: BRAND_COLORS.background };
+
 export const generateMetadata = async ({ params }: LocaleLayoutProps): Promise<Metadata> => {
   const { locale } = await params;
 
@@ -35,6 +39,12 @@ export const generateMetadata = async ({ params }: LocaleLayoutProps): Promise<M
     metadataBase: new URL(siteConfig.siteUrl),
     title: { default: t('title'), template: `%s · ${t('title')}` },
     description: t('description'),
+    applicationName: siteConfig.name,
+    keywords: [...siteConfig.keywords],
+    authors: [{ name: siteConfig.author, url: siteConfig.authorUrl }],
+    creator: siteConfig.author,
+    publisher: siteConfig.author,
+    manifest: '/manifest.webmanifest',
     alternates: {
       canonical: localePath(locale),
       languages: { en: '/', uk: '/uk', 'x-default': '/' },
@@ -46,7 +56,11 @@ export const generateMetadata = async ({ params }: LocaleLayoutProps): Promise<M
       description: t('description'),
       url: localePath(locale),
       locale: locale === 'uk' ? 'uk_UA' : 'en_US',
+      alternateLocale: locale === 'uk' ? 'en_US' : 'uk_UA',
     },
+    twitter: { card: 'summary_large_image', title: t('title'), description: t('description') },
+    /* The share card is the point of the page in search results too, so ask for the large preview. */
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large' } },
   };
 };
 
