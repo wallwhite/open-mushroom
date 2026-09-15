@@ -11,6 +11,7 @@ export default defineConfig({
         },
       },
       'packages/open-mushroom',
+      'apps/lab',
     ],
   },
 });

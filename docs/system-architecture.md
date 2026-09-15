@@ -1,5 +1,42 @@
 # System architecture
 
+## Lab App Flow
+
+**Locale Routing (next-intl proxy.ts):**
+```
+User request → proxy.ts matcher
+├─ URL has locale prefix? (en, uk) → set locale
+├─ Cookie NEXT_LOCALE? → use it
+├─ Accept-Language header? → redirect to matching locale or default
+└─ Default locale (en) → serve /
+
+Result: / (en), /uk (uk), /de (404)
+```
+
+**Development vs. Production:**
+
+*Development (`NODE_ENV=development`):*
+- Turbopack `resolveAlias` maps `open-mushroom/*` imports to `packages/open-mushroom/src/*`
+- Package changes visible instantly via HMR (no rebuild needed)
+- Server starts ~2s with `pnpm dev`
+
+*Production (`NODE_ENV=production` during `next build`):*
+- Turbopack resolveAlias disabled
+- `transpilePackages: ['open-mushroom']` ensures Turbopack transpiles the workspace package
+- Consumes compiled `packages/open-mushroom/dist/` (built by root `pnpm build:package` as a prerequisite)
+- Routes (`/`, `/en`, `/uk`) generated as static (SSG) by `generateStaticParams`
+
+**Metadata & Alternates:**
+
+Every page includes hreflang alternates and Open Graph locale:
+- Canonical: `localePath(locale)` (/ for en, /uk for uk)
+- hreflang languages: `{ en: '/', uk: '/uk', 'x-default': '/' }`
+- OpenGraph locale: `en_US` or `uk_UA` based on route
+
+**Message Parity:**
+
+`i18n/messages-parity.test.ts` ensures both `en.json` and `uk.json` define the same namespaces and keys, with no empty values.
+
 ## Package Structure
 
 **Core** (`src/core/`):

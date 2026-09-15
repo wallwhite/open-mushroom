@@ -23,6 +23,15 @@
 - Comments explain invariants and trade-offs, not obvious code
 - No local paths, plan references, or tool names in code
 
+## Next.js 16 Lab App Conventions
+
+- **Proxy middleware (next-intl):** `proxy.ts` exports `default` and `config.matcher` as string literals (imports break dev server)
+- **Dynamic params:** Layout and page functions receive `params` as a Promise; await before use
+- **Static generation:** Use `generateStaticParams()` to pre-render all locale variants; SSG pages avoid dynamic `getRequestLocale` calls
+- **Message files:** i18n messages live in `messages/{locale}.json` by locale, never hardcoded in components
+- **Workspace package in dev:** `next.config.ts` conditional `turbopack.resolveAlias` (dev only); relative paths from app root (absolute paths fail)
+- **Package prerequisite:** Root `dev` script runs `pnpm build:package` before starting the lab to ensure types are available for ESLint/TypeScript
+
 ## Toolchain
 
 **Node version enforcement:**

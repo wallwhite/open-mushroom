@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "title": "Open Mushroom Lab",
+    "description": "Mushroom Gennadiyovych, a living SVG mascot for React: try the emotions, idle life and speech bubble, then read the docs."
+  },
+  "header": {
+    "title": "Open Mushroom - Lab",
+    "github": "GitHub",
+    "githubLabel": "Open Mushroom on GitHub"
+  },
+  "footer": {
+    "copyright": "© 2026 Yaroslav Romanenko",
+    "license": "MIT license",
+    "npm": "npm",
+    "github": "GitHub",
+    "language": "Language"
+  },
+  "notFound": {
+    "title": "Nothing grows here",
+    "description": "The page you asked for does not exist.",
+    "home": "Back to the lab"
+  },
+  "home": {
+    "placeholder": "The playground lands here shortly."
+  }
+}

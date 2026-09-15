@@ -30,15 +30,25 @@ Living document tracking progress toward v0.1.0 and beyond.
    - GitHub Actions: Version pull request + automated npm publish (OIDC trusted)
    - Quality gates: publint, arethetypeswrong, size-limit (115 kB gzip budget)
 
-6. **Lab playground** (planned)
-   - Next.js playground with interactive controls
-   - Bilingual docs (English, Ukrainian)
-   - Live code examples
+6. **Lab app shell** ✓ Complete
+   - Next.js 16 with next-intl 4.14 i18n routing
+   - Dynamic locale routes (`/` en, `/uk` uk) with hreflang alternates
+   - Full-width header and footer with locale switcher
+   - Marketplace-ready URL locale detection (Accept-Language → redirect)
+   - SSG pages with robots.txt and sitemap.xml
+   - Dev HMR with workspace package aliasing, production consumption via compiled dist
+   - 91 tests passing (routing, message parity, all quality gates green)
+   - Placeholder page (lab controls added in phase 6)
 
-7. **Documentation & QA** (planned)
-   - API reference, guides, gallery
-   - Visual regression testing
-   - Accessibility audits
+7. **Lab page** (planned)
+   - Interactive Mushroom controls (emotion, size, speech bubble)
+   - Live code examples and snippets
+   - Performance and layout testing
+
+8. **Docs page** (planned)
+   - API reference (types, components, hooks)
+   - Integration guides
+   - Accessibility audits and QA
 
 ## Post-v0.1
 

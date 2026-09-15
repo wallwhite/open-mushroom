@@ -11,8 +11,9 @@ Open Mushroom is a standalone, open-source monorepo extracting an animated chara
 - ESLint configuration mirroring upstream project
 
 **Includes in v0.1 (planned before release):**
-- Mushroom Lab: Next.js playground for trying emotions, sizes, speech bubble
-- Bilingual documentation (English and Ukrainian) with live code examples
+- Lab app shell: Next.js 16 with i18n routing, metadata, header/footer (complete; phase 6 adds interactive controls)
+- Lab page: Emotion/size/speech bubble controls with live code examples
+- Docs page: API reference and integration guides
 - Bundling configuration and npm publish workflow
 
 **Excludes (post-v0.1):**

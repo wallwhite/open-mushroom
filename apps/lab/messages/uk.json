@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "title": "Open Mushroom Lab",
+    "description": "Машрум Геннадійович — живий SVG-маскот для React: спробуйте емоції, idle-життя та хмаринку, а потім читайте документацію."
+  },
+  "header": {
+    "title": "Open Mushroom - Lab",
+    "github": "GitHub",
+    "githubLabel": "Open Mushroom на GitHub"
+  },
+  "footer": {
+    "copyright": "© 2026 Ярослав Романенко",
+    "license": "Ліцензія MIT",
+    "npm": "npm",
+    "github": "GitHub",
+    "language": "Мова"
+  },
+  "notFound": {
+    "title": "Тут нічого не росте",
+    "description": "Такої сторінки не існує.",
+    "home": "Назад до лабораторії"
+  },
+  "home": {
+    "placeholder": "Незабаром тут зʼявиться майданчик."
+  }
+}

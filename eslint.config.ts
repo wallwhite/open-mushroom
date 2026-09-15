@@ -51,7 +51,7 @@ export default defineConfig([
     '**/next-env.d.ts',
     '*.config.js',
     '*.config.cjs',
-    '*.config.mjs',
+    '**/*.config.mjs',
     '**/*.config.ts',
     'plans/**',
     'docs/**',

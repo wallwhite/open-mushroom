@@ -33,14 +33,32 @@ pnpm check       # lint, format, typecheck, test (all run build:package first)
 - size-limit: gzip budget 115 kB for `import { Mushroom }` (currently ~98 kB)
 - typecheck:consumer: smoke test against built declarations
 
-## Lab Deployment (Next.js)
+## Lab App (Next.js 16)
 
-**Hosting:** Vercel
+### Local Development
 
-**Configuration:**
-- Root directory: `apps/lab`
-- Build: `pnpm install` → `pnpm build` (runs build:package first)
-- Node version: 22 (set via `.nvmrc`)
+**Run the lab with live package HMR:**
+```bash
+pnpm dev              # Starts: build:package → concurrently (package dev + lab dev)
+# Lab server: http://localhost:3001
+```
+
+**Locale behavior:**
+- `/` → English (default)
+- `/uk` → Ukrainian
+- `/de` → 404 (unsupported locale)
+- Accept-Language header respected: `curl -H 'Accept-Language: uk-UA' http://localhost:3001/` redirects to `/uk`
+
+**Environment variables** (optional, for site URLs):
+- `APP_URL`: Public site URL (used in robots.ts, sitemap.ts, metadata canonicals; defaults to localhost)
+
+### Hosting the Lab
+
+The lab is a standard Next.js app; any Node host works. Hosting is not chosen yet.
+
+- Build from the repository root with `pnpm build` (compiles the package first, then the lab)
+- Install with `pnpm install --frozen-lockfile` on Node 22 (`.nvmrc`)
+- Set `APP_URL` to the public origin; without it the canonical links, hreflang alternates, robots and sitemap point at `http://localhost:3001`
 
 ## npm Release Workflow
 
