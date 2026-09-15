@@ -81,6 +81,12 @@
     @apply border-border outline-ring/50;
   }
 
+  /* The gutter is reserved whether or not a page scrolls, so moving between the home page and the
+     documentation does not shift the layout sideways by the width of a scrollbar. */
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     @apply bg-background font-sans text-foreground antialiased;
   }
