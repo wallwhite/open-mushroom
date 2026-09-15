@@ -1,0 +1,25 @@
+packages:
+  - packages/*
+  - apps/*
+
+catalog:
+  react: 19.3.0
+  react-dom: 19.3.0
+  '@types/react': 19.3.0
+  '@types/react-dom': 19.3.0
+  gsap: 3.15.0
+  typescript: 5.9.3
+  vitest: 5.0.0
+
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
+
+# Cooldown (minutes) against freshly published, possibly compromised releases.
+minimumReleaseAge: 4320
+
+# eslint-plugin-unicorn 73 declares eslint >=10.4 but runs on ESLint 9 (verified by the config tests);
+# ESLint 10 is a deliberate future upgrade, so the peer mismatch is expected.
+peerDependencyRules:
+  allowedVersions:
+    'eslint-plugin-unicorn>eslint': '9'

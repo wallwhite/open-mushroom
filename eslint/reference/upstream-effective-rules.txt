@@ -1,0 +1,453 @@
+# Upstream effective ESLint rule set, dumped with `eslint --print-config` on a .tsx source file of the original
+# application (ESLint 8 legacy config). Only enabled rules are listed: E = error, W = warn, then the options array.
+# Sanitized: parser paths and private-registry import groups removed. Rule ids that changed between plugin majors
+# are mapped in ../rule-renames.ts.
+total enabled: 430
+
+## @typescript-eslint (82)
+E @typescript-eslint/array-type [{"default":"array-simple"}]
+E @typescript-eslint/await-thenable
+E @typescript-eslint/ban-ts-comment
+E @typescript-eslint/ban-tslint-comment
+E @typescript-eslint/ban-types [{"types":{"Object":{"message":"Avoid using the `Object` type. Did you mean `object`?"},"Function":{"message":"Avoid using the `Function` type. Prefer a specific function type, like `() => void`."},"Boolean":{"message":"Avoid using the `Boolean` type. Did you mean `boolean`?","fixWith":"boolean"},"Number":{"message":"Avoid using the `Number` type. Did you mean `number`?","fixWith":"number"},"Symbol":{"message":"Avoid using the `Symbol` type. Did you mean `symbol`?","fixWith":"symbol"},"String":{"message":"Avoid using the `String` type. Did you mean `string`?","fixWith":"string"},"{}":{"message":"Use Record<K, V> instead","fixWith":"Record<K, V>"},"object":{"message":"Use Record<K, V> instead","fixWith":"Record<K, V>"}}}]
+E @typescript-eslint/class-literal-property-style
+E @typescript-eslint/consistent-generic-constructors
+E @typescript-eslint/consistent-indexed-object-style
+E @typescript-eslint/consistent-type-assertions
+E @typescript-eslint/consistent-type-definitions ["interface"]
+E @typescript-eslint/consistent-type-imports [{"prefer":"type-imports","fixStyle":"inline-type-imports"}]
+E @typescript-eslint/default-param-last
+E @typescript-eslint/dot-notation
+E @typescript-eslint/naming-convention [{"format":["PascalCase"],"selector":["typeLike","enumMember"]},{"custom":{"match":false,"regex":"^I[A-Z]|^(Interface|Props|State)$"},"format":["PascalCase"],"selector":"interface"}]
+E @typescript-eslint/no-array-constructor
+E @typescript-eslint/no-array-delete
+E @typescript-eslint/no-base-to-string
+E @typescript-eslint/no-confusing-void-expression
+E @typescript-eslint/no-duplicate-enum-values
+E @typescript-eslint/no-duplicate-type-constituents
+E @typescript-eslint/no-dynamic-delete
+E @typescript-eslint/no-explicit-any
+E @typescript-eslint/no-extra-non-null-assertion
+E @typescript-eslint/no-extraneous-class
+E @typescript-eslint/no-floating-promises
+E @typescript-eslint/no-for-in-array
+E @typescript-eslint/no-implied-eval
+E @typescript-eslint/no-inferrable-types
+E @typescript-eslint/no-invalid-void-type
+E @typescript-eslint/no-loop-func
+E @typescript-eslint/no-loss-of-precision
+E @typescript-eslint/no-meaningless-void-operator
+E @typescript-eslint/no-misused-new
+E @typescript-eslint/no-misused-promises
+E @typescript-eslint/no-mixed-enums
+E @typescript-eslint/no-namespace
+E @typescript-eslint/no-non-null-asserted-nullish-coalescing
+E @typescript-eslint/no-non-null-asserted-optional-chain
+E @typescript-eslint/no-non-null-assertion
+E @typescript-eslint/no-shadow
+E @typescript-eslint/no-this-alias
+E @typescript-eslint/no-throw-literal
+E @typescript-eslint/no-unnecessary-boolean-literal-compare
+E @typescript-eslint/no-unnecessary-type-arguments
+E @typescript-eslint/no-unnecessary-type-assertion
+E @typescript-eslint/no-unnecessary-type-constraint
+E @typescript-eslint/no-unsafe-declaration-merging
+E @typescript-eslint/no-unsafe-enum-comparison
+E @typescript-eslint/no-unused-vars [{"argsIgnorePattern":"^_","vars":"all","args":"after-used"}]
+E @typescript-eslint/no-use-before-define
+E @typescript-eslint/no-useless-constructor
+E @typescript-eslint/no-useless-template-literals
+E @typescript-eslint/no-var-requires
+E @typescript-eslint/prefer-as-const
+E @typescript-eslint/prefer-for-of
+E @typescript-eslint/prefer-function-type
+E @typescript-eslint/prefer-includes
+E @typescript-eslint/prefer-literal-enum-member
+E @typescript-eslint/prefer-namespace-keyword
+E @typescript-eslint/prefer-optional-chain
+E @typescript-eslint/prefer-promise-reject-errors
+E @typescript-eslint/prefer-reduce-type-parameter
+E @typescript-eslint/prefer-return-this-type
+E @typescript-eslint/prefer-string-starts-ends-with
+E @typescript-eslint/prefer-ts-expect-error
+E @typescript-eslint/require-array-sort-compare [{"ignoreStringArrays":true}]
+E @typescript-eslint/require-await
+E @typescript-eslint/restrict-plus-operands
+E @typescript-eslint/switch-exhaustiveness-check
+E @typescript-eslint/triple-slash-reference
+E @typescript-eslint/unbound-method
+E @typescript-eslint/unified-signatures
+W @typescript-eslint/consistent-type-exports [{"fixMixedExportsWithInlineTypeSpecifier":true}]
+W @typescript-eslint/member-ordering [{"default":{"optionalityOrder":"required-first","order":"as-written"}}]
+W @typescript-eslint/method-signature-style
+W @typescript-eslint/no-confusing-non-null-assertion
+W @typescript-eslint/no-empty-interface
+W @typescript-eslint/no-redundant-type-constituents
+W @typescript-eslint/no-require-imports
+W @typescript-eslint/no-unnecessary-qualifier
+W @typescript-eslint/prefer-regexp-exec
+W @typescript-eslint/sort-type-constituents [{"checkUnions":false}]
+
+## core (124)
+E accessor-pairs
+E array-callback-return [{"allowImplicit":true,"checkForEach":false,"allowVoid":false}]
+E block-scoped-var
+E camelcase [{"allow":["^UNSAFE_"],"ignoreDestructuring":false,"properties":"never","ignoreImports":false,"ignoreGlobals":false}]
+E complexity [20]
+E consistent-return
+E default-case [{"commentPattern":"^no default$"}]
+E default-case-last
+E eqeqeq
+E for-direction
+E func-name-matching
+E func-names ["as-needed"]
+E func-style ["expression"]
+E grouped-accessor-pairs
+E guard-for-in
+E max-classes-per-file [1]
+E new-cap [{"capIsNew":false,"newIsCap":true,"properties":true}]
+E newline-after-var ["always"]
+E newline-before-return
+E no-alert
+E no-async-promise-executor
+E no-await-in-loop
+E no-bitwise
+E no-caller
+E no-case-declarations
+E no-class-assign
+E no-compare-neg-zero
+E no-cond-assign
+E no-constant-binary-expression
+E no-constructor-return
+E no-control-regex
+E no-debugger
+E no-delete-var
+E no-dupe-else-if
+E no-duplicate-case
+E no-duplicate-imports
+E no-else-return [{"allowElseIf":false}]
+E no-empty
+E no-empty-character-class
+E no-empty-pattern
+E no-eval
+E no-ex-assign
+E no-extend-native
+E no-extra-bind
+E no-extra-boolean-cast
+E no-extra-label
+E no-fallthrough
+E no-global-assign
+E no-implicit-coercion [{"boolean":false,"number":true,"string":true,"allow":[],"disallowTemplateShorthand":false}]
+E no-inner-declarations
+E no-invalid-regexp
+E no-invalid-this
+E no-irregular-whitespace
+E no-iterator
+E no-label-var
+E no-labels
+E no-lone-blocks
+E no-loop-func
+E no-magic-numbers [{"ignore":[0,1],"ignoreDefaultValues":true,"ignoreArrayIndexes":true,"enforceConst":true,"detectObjects":false,"ignoreClassFieldInitialValues":false}]
+E no-misleading-character-class
+E no-multi-assign
+E no-multi-str
+E no-new
+E no-new-func
+E no-new-object
+E no-new-wrappers
+E no-nonoctal-decimal-escape
+E no-octal
+E no-octal-escape
+E no-param-reassign [{"props":true,"ignorePropertyModificationsFor":["acc","accumulator","e","req","request","res","staticContext"]}]
+E no-plusplus [{"allowForLoopAfterthoughts":true}]
+E no-promise-executor-return
+E no-proto
+E no-prototype-builtins
+E no-regex-spaces
+E no-restricted-properties [{"object":"arguments","property":"callee","message":"arguments.callee is deprecated"},{"object":"global","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"self","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"window","property":"isFinite","message":"Please use Number.isFinite instead"},{"object":"global","property":"isNaN","message":"Please use Number.isNaN instead"},{"object":"self","property":"isNaN","message":"Please use Number.isNaN instead"},{"object":"window","property":"isNaN","message":"Please use Number.isNaN instead"}]
+E no-return-assign
+E no-return-await
+E no-script-url
+E no-self-assign
+E no-self-compare
+E no-sequences
+E no-shadow-restricted-names
+E no-sparse-arrays
+E no-template-curly-in-string
+E no-unneeded-ternary
+E no-unreachable-loop
+E no-unsafe-finally
+E no-unsafe-optional-chaining
+E no-unused-expressions
+E no-unused-labels
+E no-useless-backreference
+E no-useless-call
+E no-useless-catch
+E no-useless-concat
+E no-useless-escape
+E no-useless-rename
+E no-var
+E no-void
+E no-with
+E object-shorthand
+E one-var ["never"]
+E operator-assignment ["always"]
+E padding-line-between-statements [{"blankLine":"always","prev":"*","next":"return"}]
+E prefer-const
+E prefer-destructuring [{"VariableDeclarator":{"array":false,"object":true},"AssignmentExpression":{"array":true,"object":false}},{"enforceForRenamedProperties":false}]
+E prefer-exponentiation-operator
+E prefer-numeric-literals
+E prefer-regex-literals
+E prefer-rest-params
+E prefer-spread
+E prefer-template
+E require-atomic-updates
+E require-yield
+E spaced-comment ["always",{"line":{"exceptions":["-","+","/"],"markers":["=","!","/"]}}]
+E symbol-description
+E use-isnan
+E valid-typeof
+E yoda ["never",{"exceptRange":true,"onlyEquality":false}]
+W no-console [{"allow":["warn","error"]}]
+W no-lonely-if
+W no-useless-computed-key
+W no-useless-return
+W prefer-object-spread
+
+## import (18)
+E import/first
+E import/newline-after-import
+E import/no-absolute-path
+E import/no-cycle
+E import/no-duplicates
+E import/no-dynamic-require
+E import/no-extraneous-dependencies [{"includeTypes":true,"devDependencies":["test/**","tests/**","spec/**","**/__tests__/**","**/__mocks__/**","test.{js,jsx,ts,tsx}","test-*.{js,jsx,ts,tsx}","**/*{.,_}{test,spec}.{js,jsx,ts,tsx}","**/jest.config.js","**/jest.setup.js","**/vite.config.ts","**/vite.config.js","**/vue.config.js","**/webpack.config.js","**/webpack.config.*.js","**/rollup.config.js","**/rollup.config.*.js","**/.eslintrc.js","**/.eslintrc.cjs"],"optionalDependencies":false}]
+E import/no-mutable-exports
+E import/no-named-as-default
+E import/no-named-as-default-member
+E import/no-named-default
+E import/no-self-import
+E import/no-useless-path-segments
+E import/order [{"alphabetize":{"order":"asc","caseInsensitive":true,"orderImportKind":"ignore"},"pathGroups":[{"pattern":"react","group":"builtin","position":"before"},{"pattern":"react*","group":"builtin"},{"pattern":"@react*","group":"builtin","position":"after"},{"pattern":"@/assets/**","group":"internal","position":"after"},{"pattern":"@/lib/**","group":"internal","position":"after"},{"pattern":"@/modules/**","group":"internal","position":"after"},{"pattern":"@/components/**","group":"internal","position":"after"},{"pattern":"./*.scss","group":"object","position":"after"}],"pathGroupsExcludedImportTypes":["react"],"groups":["builtin","external","internal","parent","sibling","index","object"],"distinctGroup":true,"named":false,"warnOnUnassignedImports":false}]
+W import/no-anonymous-default-export [{"allowArray":false,"allowArrowFunction":false,"allowAnonymousClass":false,"allowAnonymousFunction":false,"allowLiteral":false,"allowObject":false}]
+W import/no-deprecated
+W import/no-relative-packages
+W import/no-unassigned-import [{"allow":["**/*.css","**/*.scss","**/*.sass"]}]
+
+## jsx-a11y (31)
+E jsx-a11y/alt-text
+E jsx-a11y/anchor-has-content
+E jsx-a11y/anchor-is-valid
+E jsx-a11y/aria-activedescendant-has-tabindex
+E jsx-a11y/aria-props
+E jsx-a11y/aria-proptypes
+E jsx-a11y/aria-role
+E jsx-a11y/aria-unsupported-elements
+E jsx-a11y/autocomplete-valid
+E jsx-a11y/click-events-have-key-events
+E jsx-a11y/heading-has-content
+E jsx-a11y/html-has-lang
+E jsx-a11y/iframe-has-title
+E jsx-a11y/img-redundant-alt
+E jsx-a11y/interactive-supports-focus [{"tabbable":["button","checkbox","link","searchbox","spinbutton","switch","textbox"]}]
+E jsx-a11y/label-has-associated-control
+E jsx-a11y/media-has-caption
+E jsx-a11y/mouse-events-have-key-events
+E jsx-a11y/no-access-key
+E jsx-a11y/no-autofocus
+E jsx-a11y/no-distracting-elements
+E jsx-a11y/no-interactive-element-to-noninteractive-role [{"tr":["none","presentation"],"canvas":["img"]}]
+E jsx-a11y/no-noninteractive-element-interactions [{"handlers":["onClick","onError","onLoad","onMouseDown","onMouseUp","onKeyPress","onKeyDown","onKeyUp"],"alert":["onKeyUp","onKeyDown","onKeyPress"],"body":["onError","onLoad"],"dialog":["onKeyUp","onKeyDown","onKeyPress"],"iframe":["onError","onLoad"],"img":["onError","onLoad"]}]
+E jsx-a11y/no-noninteractive-element-to-interactive-role [{"ul":["listbox","menu","menubar","radiogroup","tablist","tree","treegrid"],"ol":["listbox","menu","menubar","radiogroup","tablist","tree","treegrid"],"li":["menuitem","menuitemradio","menuitemcheckbox","option","row","tab","treeitem"],"table":["grid"],"td":["gridcell"],"fieldset":["radiogroup","presentation"]}]
+E jsx-a11y/no-noninteractive-tabindex [{"tags":[],"roles":["tabpanel"],"allowExpressionValues":true}]
+E jsx-a11y/no-redundant-roles
+E jsx-a11y/no-static-element-interactions [{"allowExpressionValues":true,"handlers":["onClick","onMouseDown","onMouseUp","onKeyPress","onKeyDown","onKeyUp"]}]
+E jsx-a11y/role-has-required-aria-props
+E jsx-a11y/role-supports-aria-props
+E jsx-a11y/scope
+E jsx-a11y/tabindex-no-positive
+
+## prettier (1)
+E prettier/prettier [{"singleQuote":true,"tabWidth":2,"printWidth":120,"trailingComma":"all","plugins":["prettier-plugin-packagejson"]}]
+
+## react (53)
+E react/display-name
+E react/jsx-closing-tag-location
+E react/jsx-curly-brace-presence [{"props":"never","children":"never","propElementValues":"always"}]
+E react/jsx-curly-newline [{"multiline":"consistent","singleline":"forbid"}]
+E react/jsx-curly-spacing ["never"]
+E react/jsx-equals-spacing ["never"]
+E react/jsx-first-prop-new-line
+E react/jsx-indent [2]
+E react/jsx-indent-props [2]
+E react/jsx-key [{"checkFragmentShorthand":true,"checkKeyMustBeforeSpread":true,"warnOnDuplicates":true}]
+E react/jsx-max-props-per-line [{"maximum":3,"when":"multiline"}]
+E react/jsx-no-bind [{"allowArrowFunctions":true,"allowBind":false,"allowFunctions":false,"ignoreRefs":false,"ignoreDOMComponents":false}]
+E react/jsx-no-comment-textnodes
+E react/jsx-no-duplicate-props [{"ignoreCase":true}]
+E react/jsx-no-target-blank [{"allowReferrer":true,"links":true,"forms":false}]
+E react/jsx-no-undef
+E react/jsx-props-no-multi-spaces
+E react/jsx-tag-spacing [{"closingSlash":"never","beforeSelfClosing":"always","afterOpening":"never","beforeClosing":"never"}]
+E react/jsx-uses-react
+E react/jsx-uses-vars
+E react/jsx-wrap-multilines [{"declaration":"parens-new-line","assignment":"parens-new-line","return":"parens-new-line","arrow":"parens-new-line","condition":"ignore","logical":"ignore","prop":"ignore"}]
+E react/no-arrow-function-lifecycle
+E react/no-children-prop
+E react/no-danger-with-children
+E react/no-deprecated
+E react/no-did-update-set-state
+E react/no-direct-mutation-state
+E react/no-find-dom-node
+E react/no-invalid-html-attribute
+E react/no-is-mounted
+E react/no-namespace
+E react/no-redundant-should-component-update
+E react/no-render-return-value
+E react/no-string-refs
+E react/no-unescaped-entities
+E react/no-unknown-property
+E react/no-unsafe
+E react/no-unstable-nested-components
+E react/no-unused-prop-types
+E react/no-unused-state
+E react/require-render-return
+W react/button-has-type
+W react/function-component-definition [{"namedComponents":"arrow-function","unnamedComponents":"arrow-function"}]
+W react/hook-use-state
+W react/jsx-boolean-value
+W react/jsx-fragments
+W react/jsx-no-leaked-render
+W react/jsx-no-useless-fragment [{"allowExpressions":true}]
+W react/jsx-pascal-case
+W react/jsx-sort-props [{"callbacksLast":true,"shorthandFirst":true,"multiline":"last","noSortAlphabetically":true,"locale":"auto"}]
+W react/no-access-state-in-setstate
+W react/no-array-index-key
+W react/self-closing-comp
+
+## react-hooks (1)
+E react-hooks/rules-of-hooks
+
+## sonarjs (30)
+E sonarjs/cognitive-complexity
+E sonarjs/max-switch-cases
+E sonarjs/no-all-duplicated-branches
+E sonarjs/no-collapsible-if
+E sonarjs/no-collection-size-mischeck
+E sonarjs/no-duplicated-branches
+E sonarjs/no-element-overwrite
+E sonarjs/no-empty-collection
+E sonarjs/no-extra-arguments
+E sonarjs/no-gratuitous-expressions
+E sonarjs/no-identical-conditions
+E sonarjs/no-identical-expressions
+E sonarjs/no-identical-functions
+E sonarjs/no-ignored-return
+E sonarjs/no-nested-switch
+E sonarjs/no-nested-template-literals
+E sonarjs/no-one-iteration-loop
+E sonarjs/no-redundant-boolean
+E sonarjs/no-redundant-jump
+E sonarjs/no-same-line-conditional
+E sonarjs/no-small-switch
+E sonarjs/no-unused-collection
+E sonarjs/no-use-of-empty-return-value
+E sonarjs/no-useless-catch
+E sonarjs/non-existent-operator
+E sonarjs/prefer-immediate-return
+E sonarjs/prefer-object-literal
+E sonarjs/prefer-single-boolean-return
+E sonarjs/prefer-while
+W sonarjs/no-duplicate-string [{"threshold":5,"ignoreStrings":"application/json"}]
+
+## unicorn (90)
+E unicorn/better-regex
+E unicorn/catch-error-name
+E unicorn/consistent-destructuring
+E unicorn/error-message
+E unicorn/escape-case
+E unicorn/expiring-todo-comments
+E unicorn/explicit-length-check
+E unicorn/filename-case [{"case":"kebabCase"}]
+E unicorn/import-style
+E unicorn/new-for-builtins
+E unicorn/no-abusive-eslint-disable
+E unicorn/no-array-callback-reference
+E unicorn/no-array-method-this-argument
+E unicorn/no-array-push-push
+E unicorn/no-await-expression-member
+E unicorn/no-console-spaces
+E unicorn/no-document-cookie
+E unicorn/no-empty-file
+E unicorn/no-for-loop
+E unicorn/no-hex-escape
+E unicorn/no-instanceof-array
+E unicorn/no-invalid-remove-event-listener
+E unicorn/no-lonely-if
+E unicorn/no-negated-condition
+E unicorn/no-new-array
+E unicorn/no-new-buffer
+E unicorn/no-object-as-default-parameter
+E unicorn/no-process-exit
+E unicorn/no-thenable
+E unicorn/no-this-assignment
+E unicorn/no-typeof-undefined
+E unicorn/no-unnecessary-await
+E unicorn/no-unreadable-array-destructuring
+E unicorn/no-unreadable-iife
+E unicorn/no-useless-fallback-in-spread
+E unicorn/no-useless-length-check
+E unicorn/no-useless-promise-resolve-reject
+E unicorn/no-useless-spread
+E unicorn/no-useless-switch-case
+E unicorn/no-useless-undefined
+E unicorn/no-zero-fractions
+E unicorn/numeric-separators-style
+E unicorn/prefer-add-event-listener
+E unicorn/prefer-array-find
+E unicorn/prefer-array-flat
+E unicorn/prefer-array-flat-map
+E unicorn/prefer-array-index-of
+E unicorn/prefer-array-some
+E unicorn/prefer-at
+E unicorn/prefer-blob-reading-methods
+E unicorn/prefer-code-point
+E unicorn/prefer-date-now
+E unicorn/prefer-default-parameters
+E unicorn/prefer-dom-node-append
+E unicorn/prefer-dom-node-dataset
+E unicorn/prefer-dom-node-remove
+E unicorn/prefer-dom-node-text-content
+E unicorn/prefer-event-target
+E unicorn/prefer-export-from
+E unicorn/prefer-includes
+E unicorn/prefer-keyboard-event-key
+E unicorn/prefer-logical-operator-over-ternary
+E unicorn/prefer-math-trunc
+E unicorn/prefer-modern-dom-apis
+E unicorn/prefer-modern-math-apis
+E unicorn/prefer-native-coercion-functions
+E unicorn/prefer-negative-index
+E unicorn/prefer-number-properties
+E unicorn/prefer-object-from-entries
+E unicorn/prefer-optional-catch-binding
+E unicorn/prefer-prototype-methods
+E unicorn/prefer-query-selector
+E unicorn/prefer-reflect-apply
+E unicorn/prefer-regexp-test
+E unicorn/prefer-set-has
+E unicorn/prefer-set-size
+E unicorn/prefer-spread
+E unicorn/prefer-string-replace-all
+E unicorn/prefer-string-slice
+E unicorn/prefer-string-starts-ends-with
+E unicorn/prefer-string-trim-start-end
+E unicorn/prefer-switch
+E unicorn/prefer-ternary
+E unicorn/prefer-type-error
+E unicorn/relative-url-style
+E unicorn/require-array-join-separator
+E unicorn/require-number-to-fixed-digits-argument
+E unicorn/switch-case-braces
+E unicorn/text-encoding-identifier-case
+E unicorn/throw-new-error

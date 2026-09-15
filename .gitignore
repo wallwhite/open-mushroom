@@ -1,0 +1,48 @@
+# dependencies
+node_modules
+.pnp
+.pnp.*
+
+# build outputs
+dist
+build
+.next
+out
+.turbo
+.vercel
+coverage
+*.tsbuildinfo
+next-env.d.ts
+.swc
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+
+# env files
+.env*
+!.env.example
+
+# os / editors
+.DS_Store
+.idea
+
+# test and QA output
+test-results
+__screenshots__
+.mushroom-debug/
+apps/lab/qa/out/
+
+# assistant workspaces and generated manifests (never source)
+plans/
+.claude/
+.agents/
+.codex/
+.repomixignore
+release-manifest.json
+repomix-output.xml
+artifacts/
+screenshots/
+*.backup

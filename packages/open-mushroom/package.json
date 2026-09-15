@@ -1,0 +1,7 @@
+{
+  "name": "open-mushroom",
+  "version": "0.0.0",
+  "private": false,
+  "description": "Mushroom, an animated SVG mascot for React: seven emotions, morphing face, idle life and a speech bubble.",
+  "license": "MIT"
+}

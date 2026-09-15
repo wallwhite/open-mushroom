@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["eslint/**/*.ts", "eslint/**/*.tsx", "eslint.config.ts", "vitest.config.ts"]
+}

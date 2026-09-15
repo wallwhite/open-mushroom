@@ -1,0 +1,60 @@
+{
+  "name": "open-mushroom-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r run --if-present build",
+    "build:package": "pnpm --filter open-mushroom run --if-present build",
+    "check": "pnpm lint && pnpm format && pnpm typecheck && pnpm test",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint": "pnpm build:package && eslint . --max-warnings 0",
+    "lint:fix": "pnpm build:package && eslint . --fix",
+    "prepare": "husky",
+    "test": "pnpm build:package && vitest run",
+    "test:watch": "vitest",
+    "typecheck": "pnpm build:package && tsc -p tsconfig.json && pnpm -r run --if-present typecheck"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,cjs,mjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,mdx,yml,yaml,css,scss,html}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "16.3.5",
+    "@types/eslint-plugin-jsx-a11y": "^6.10.1",
+    "@types/node": "^22.20.2",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "eslint": "9.39.5",
+    "eslint-import-resolver-typescript": "^4.4.5",
+    "eslint-plugin-import-x": "^4.17.1",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-prettier": "^5.5.6",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-sonarjs": "^4.2.0",
+    "eslint-plugin-unicorn": "73.0.0",
+    "globals": "^17.12.0",
+    "husky": "^9.1.7",
+    "jiti": "^2.7.0",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.9.6",
+    "prettier-plugin-packagejson": "^3.0.2",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "^8.70.0",
+    "vitest": "catalog:"
+  },
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": "22.x",
+    "pnpm": "10.x"
+  }
+}

@@ -1,0 +1,16 @@
+node_modules
+dist
+build
+.next
+.turbo
+.vercel
+.idea
+.claude
+/plans
+/docs
+pnpm-lock.yaml
+*.tsbuildinfo
+**/generated/**
+release-manifest.json
+CHANGELOG.md
+eslint/fixtures/violations.tsx
