@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import { useTranslations } from 'next-intl';
 
 import { Link } from '@/i18n/navigation';
@@ -5,15 +7,19 @@ import { siteConfig } from '@/lib/site-config';
 import { GithubMarkIcon } from '@/components/icons/github-mark-icon';
 import { PageContainer } from '@/components/layout/page-container';
 
-/* Shares the content container with the page and the footer: the lab title on the left, an outline pill to the repository on the right. */
+/* The accented half of the wordmark, kept out of the render so the tag is the same function every time. */
+const accent = (chunks: ReactNode) => <span className="text-primary">{chunks}</span>;
+
+/* Shares the content container with the page and the footer: the wordmark on the left, an outline pill to the repository on the right. */
 export const SiteHeader = () => {
   const t = useTranslations('header');
 
   return (
     <header className="py-4">
       <PageContainer className="flex items-center justify-between gap-4">
+        {/* A wordmark rather than a sentence: the accent travels with the catalogue string. */}
         <Link href="/" className="text-lg font-bold tracking-tight">
-          {t('title')}
+          {t.rich('title', { accent })}
         </Link>
         <a
           href={siteConfig.repoUrl}
